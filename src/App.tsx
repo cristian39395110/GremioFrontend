@@ -2,8 +2,10 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import LoginPage from "./pages/admin/LoginPage";
 import GremiosPage from "./pages/admin/GremiosPage";
-import NuevoGremioPage from "./pages/admin/NuevoGremioPage";  // Importa la página de nuevo gremio
+import NuevoGremioPage from "./pages/admin/NuevoGremioPage";
 import GremioDetallePage from "./pages/admin/GremioDetallePage";
+import AdminSeguridadPage from "./pages/admin/AdminSeguridadPage";
+
 import AdminLayout from "./layouts/AdminLayout";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
 
@@ -14,7 +16,7 @@ function App() {
         {/* ADMIN LOGIN */}
         <Route path="/admin/login" element={<LoginPage />} />
 
-        {/* ADMIN PROTEGIDO */}
+        {/* ADMIN PROTEGIDO (Layout + Outlet) */}
         <Route
           path="/admin"
           element={
@@ -23,17 +25,23 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route index element={<Navigate to="/admin/gremios" replace />} />
-          <Route path="gremios" element={<GremiosPage />} />
-          <Route path="gremios/nuevo" element={<NuevoGremioPage />} /> {/* Ruta para Nuevo Gremio */}
-          <Route path="gremios/:id" element={<NuevoGremioPage />} /> {/* Ruta para Editar Gremio */}
+          {/* al entrar a /admin */}
+          <Route index element={<Navigate to="gremios" replace />} />
 
+          {/* gremios */}
+          <Route path="gremios" element={<GremiosPage />} />
+          <Route path="gremios/nuevo" element={<NuevoGremioPage />} />
+          <Route path="gremios/:id" element={<NuevoGremioPage />} />
           <Route path="gremios/:id/ver" element={<GremioDetallePage />} />
 
+          {/* seguridad */}
+          <Route path="seguridad" element={<AdminSeguridadPage />} />
+
           {/* más rutas de admin como 'integrantes' */}
+          {/* <Route path="integrantes" element={<IntegrantesPage />} /> */}
         </Route>
 
-        {/* Redirección a login si no está logueado */}
+        {/* raíz y 404 */}
         <Route path="/" element={<Navigate to="/admin/login" replace />} />
         <Route path="*" element={<Navigate to="/admin/login" replace />} />
       </Routes>

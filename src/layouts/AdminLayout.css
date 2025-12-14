@@ -105,3 +105,16 @@
     padding: 12px;
   }
 }
+
+
+@media (max-width: 768px) {
+  .admin-main {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* evita que el body haga scroll lateral */
+  body {
+    overflow-x: hidden;
+  }
+}

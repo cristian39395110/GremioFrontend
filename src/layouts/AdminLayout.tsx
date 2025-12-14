@@ -43,6 +43,14 @@ export default function AdminLayout() {
           >
             👥 Integrantes
           </NavLink>
+
+          <NavLink
+  to="/admin/seguridad"
+  className={({ isActive }) => (isActive ? "side-item active" : "side-item")}
+>
+  🔐 Seguridad
+</NavLink>
+
         </aside>
 
         <main className="admin-main">
