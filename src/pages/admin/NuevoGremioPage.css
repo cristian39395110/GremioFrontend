@@ -1,0 +1,198 @@
+/* ===============================
+   CONTENEDOR GENERAL
+================================ */
+.nuevo-gremio-page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* ===============================
+   HEADER DE LA PÁGINA
+================================ */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.page-header h2 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #0f2a44;
+}
+
+/* ===============================
+   BOTONES
+================================ */
+button {
+  font-family: inherit;
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid #0f2a44;
+  color: #0f2a44;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: rgba(15, 42, 68, 0.08);
+}
+
+button[type="submit"] {
+  background: linear-gradient(135deg, #f4b400, #ffcf33);
+  border: none;
+  color: #1a1a1a;
+  padding: 14px 18px;
+  border-radius: 14px;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+}
+
+button[type="submit"]:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* ===============================
+   FORMULARIO
+================================ */
+form {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+form h3 {
+  margin-top: 22px;
+  margin-bottom: 14px;
+  font-size: 1.2rem;
+  color: #0f2a44;
+  font-weight: 800;
+}
+
+/* ===============================
+   INPUTS / SELECTS / TEXTAREA
+================================ */
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #d0d0d0;
+  font-size: 0.95rem;
+  background: #f9fafb;
+  margin-bottom: 14px;
+  transition: all 0.15s ease;
+}
+
+textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #f4b400;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(244, 180, 0, 0.25);
+}
+
+/* ===============================
+   FILE INPUTS
+================================ */
+input[type="file"] {
+  background: #ffffff;
+  padding: 10px;
+}
+
+/* ===============================
+   MENSAJES DE ERROR
+================================ */
+.error-box {
+  background: #fdecea;
+  color: #b71c1c;
+  padding: 14px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  font-weight: 600;
+}
+
+/* ===============================
+   INTEGRANTES
+================================ */
+.integrante-box {
+  background: #f4f6f9;
+  padding: 14px;
+  border-radius: 14px;
+  margin-bottom: 16px;
+  border: 1px solid #e0e0e0;
+}
+
+.integrante-box select,
+.integrante-box input {
+  background: #ffffff;
+}
+
+.integrante-box button.danger {
+  background: #d32f2f;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.integrante-box button.danger:hover {
+  background: #b71c1c;
+}
+
+/* ===============================
+   BOTÓN AGREGAR INTEGRANTE
+================================ */
+button[type="button"] {
+  background: #0f2a44;
+  color: #ffffff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button[type="button"]:hover {
+  opacity: 0.9;
+}
+
+/* ===============================
+   RESPONSIVE DESKTOP
+================================ */
+@media (min-width: 768px) {
+  form {
+    padding: 28px 32px;
+  }
+
+  .page-header h2 {
+    font-size: 1.9rem;
+  }
+
+  /* dos columnas solo en desktop */
+  .two-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+}
