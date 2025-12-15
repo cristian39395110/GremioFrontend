@@ -1,3 +1,4 @@
+//C:\Users\Home\OneDrive\Escritorio\Trabajo Freelancer\multigremial-proyecto\frontend\src\constants\gremios.ts
 export const REGIONES = [
   "Arica y Parinacota",
   "Tarapacá",

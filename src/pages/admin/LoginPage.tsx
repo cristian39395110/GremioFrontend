@@ -11,6 +11,8 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -81,18 +83,34 @@ const LoginPage = () => {
           />
         </div>
 
-        <div className="login-field">
-          <label>Contraseña</label>
-          <input
-            className="login-input"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="********"
-            disabled={loading}
-            required
-          />
-        </div>
+<div className="login-field">
+  <label>Contraseña</label>
+
+  <div className="password-wrapper">
+    <input
+      className="login-input password-input"
+      type={showPassword ? "text" : "password"}
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+      placeholder="********"
+      disabled={loading}
+      required
+    />
+
+    <button
+      type="button"
+      className="password-toggle"
+      onClick={() => setShowPassword((v) => !v)}
+      aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+      disabled={loading}
+    >
+      {showPassword ? "🙈" : "👁️"}
+    </button>
+  </div>
+</div>
+
+
+
 
         <button className="login-button" type="submit" disabled={loading}>
           {loading ? 'Ingresando…' : 'Ingresar'}

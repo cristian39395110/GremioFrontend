@@ -196,3 +196,68 @@ button[type="button"]:hover {
     gap: 16px;
   }
 }
+.archivo-block {
+  margin: 14px 0 18px;
+}
+
+.archivo-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.archivo-label {
+  font-weight: 700;
+  font-size: 14px;
+  margin: 0;
+}
+
+.archivo-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.12);
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.archivo-chip-muted {
+  opacity: 0.7;
+}
+
+.archivo-chip-link {
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.archivo-input {
+  width: 100%;
+}
+
+.archivo-help {
+  font-size: 12px;
+  opacity: 0.75;
+  margin: 6px 0 8px;
+}
+
+.archivo-preview-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 6px 0 8px;
+}
+
+.logo-preview {
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid rgba(0,0,0,0.12);
+}
+
+
+

@@ -1,7 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./GremiosPage.css";
-import { RUBROS } from "../../constants/gremios";
+
+import { REGIONES, RUBROS } from "../../constants/gremios";
+// ...
+
+
+
 
 import { FaEye, FaEdit, FaTrash, FaSyncAlt, FaPlus, FaBroom } from "react-icons/fa";
 
@@ -17,8 +22,9 @@ export default function GremiosPage() {
   const [error, setError] = useState<string | null>(null);
 
   // filtros
+
   const [qNombre, setQNombre] = useState("");
-  const [qRut, setQRut] = useState("");
+  const [qRegion, setQRegion] = useState("");
   const [qRubro, setQRubro] = useState("");
 
   const loadGremios = async () => {
@@ -69,24 +75,27 @@ export default function GremiosPage() {
   }, []);
 
   // filtro en frontend (rápido)
-  const gremiosFiltrados = useMemo(() => {
-    const n = qNombre.trim().toLowerCase();
-    const r = qRut.trim().toLowerCase();
-    const rb = qRubro.trim().toLowerCase();
+ const gremiosFiltrados = useMemo(() => {
+  const n = qNombre.trim().toLowerCase();
+  const rg = qRegion.trim().toLowerCase();
+  const rb = qRubro.trim().toLowerCase();
 
-    return gremios.filter((g) => {
-      const nombreOk = !n || String(g.nombre || "").toLowerCase().includes(n);
-      const rutOk = !r || String(g.rut || "").toLowerCase().includes(r);
-      const rubroOk = !rb || String(g.rubro || "").toLowerCase() === rb;
-      return nombreOk && rutOk && rubroOk;
-    });
-  }, [gremios, qNombre, qRut, qRubro]);
+  return gremios.filter((g) => {
+    const nombreOk = !n || String(g.nombre || "").toLowerCase().includes(n);
+    const regionOk = !rg || String(g.region || "").toLowerCase() === rg;
+    const rubroOk  = !rb || String(g.rubro || "").toLowerCase() === rb;
 
-  const limpiarFiltros = () => {
-    setQNombre("");
-    setQRut("");
-    setQRubro("");
-  };
+    return nombreOk && regionOk && rubroOk;
+  });
+}, [gremios, qNombre, qRegion, qRubro]);
+
+
+const limpiarFiltros = () => {
+  setQNombre("");
+  setQRegion("");
+  setQRubro("");
+};
+
 
   return (
     <div className="gremios-page">
@@ -113,14 +122,18 @@ export default function GremiosPage() {
             />
           </div>
 
-          <div className="filter-item">
-            <label>RUT</label>
-            <input
-              value={qRut}
-              onChange={(e) => setQRut(e.target.value)}
-              placeholder="Buscar por RUT…"
-            />
-          </div>
+  <div className="filter-item">
+  <label>Región</label>
+  <select value={qRegion} onChange={(e) => setQRegion(e.target.value)}>
+    <option value="">Todas</option>
+    {(REGIONES || []).map((r: string) => (
+      <option key={r} value={r}>
+        {r}
+      </option>
+    ))}
+  </select>
+</div>
+
 
           <div className="filter-item">
             <label>Rubro</label>
