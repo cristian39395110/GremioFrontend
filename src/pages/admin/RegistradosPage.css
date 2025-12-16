@@ -1,0 +1,462 @@
+/* ===============================
+   RegistradosPage.css
+   Web + Responsive
+================================ */
+
+.registrados-page {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 22px 16px 40px;
+}
+
+/* Header */
+.registrados-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.registrados-header h2 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+.registrados-sub {
+  margin-top: 4px;
+  opacity: 0.75;
+  font-size: 13px;
+}
+
+/* Buttons */
+.btn-primary,
+.btn-secondary,
+.btn-action,
+.btn-mini,
+.btn-icon {
+  border: 1px solid rgba(0,0,0,0.10);
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: transform 0.06s ease, box-shadow 0.15s ease, background 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+}
+
+.btn-primary {
+  background: #111827;
+  color: #fff;
+  border-color: rgba(0,0,0,0.12);
+  box-shadow: 0 10px 28px rgba(17, 24, 39, 0.18);
+}
+
+.btn-secondary {
+  background: #fff;
+  color: #111827;
+}
+
+.btn-action {
+  background: #fff;
+  color: #111827;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-weight: 800;
+}
+
+.btn-action.icon-only {
+  width: 44px;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-action:hover,
+.btn-mini:hover,
+.btn-icon:hover {
+  box-shadow: 0 10px 26px rgba(0,0,0,0.12);
+}
+
+.btn-primary:active,
+.btn-secondary:active,
+.btn-action:active,
+.btn-mini:active,
+.btn-icon:active {
+  transform: scale(0.99);
+}
+
+.btn-primary:disabled,
+.btn-secondary:disabled,
+.btn-action:disabled,
+.btn-mini:disabled,
+.btn-icon:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Filters */
+.filters-card {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.10);
+  border-radius: 16px;
+  padding: 14px;
+  margin-bottom: 16px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.06);
+}
+
+.filters-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.filter-item label {
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  opacity: 0.8;
+  margin-bottom: 6px;
+}
+
+.filter-item input,
+.filter-item select {
+  width: 100%;
+  border: 1px solid rgba(0,0,0,0.14);
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px 12px;
+  outline: none;
+  font-size: 14px;
+}
+
+.filter-item input:focus,
+.filter-item select:focus {
+  border-color: rgba(17, 24, 39, 0.50);
+  box-shadow: 0 0 0 4px rgba(17, 24, 39, 0.08);
+}
+
+.filter-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.filters-info {
+  margin-top: 10px;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+/* States */
+.loader {
+  padding: 14px;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.10);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.05);
+}
+
+.error-box {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(239, 68, 68, 0.10);
+  border: 1px solid rgba(239, 68, 68, 0.22);
+  color: #7f1d1d;
+  font-weight: 700;
+}
+
+.empty-state {
+  margin-top: 14px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.10);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.06);
+}
+
+.empty-icon {
+  font-size: 34px;
+  margin-bottom: 10px;
+}
+
+.empty-state h3 {
+  margin: 0 0 6px 0;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.empty-state p {
+  margin: 0 0 12px 0;
+  opacity: 0.75;
+}
+
+/* Table wrapper */
+.registrados-table-wrapper {
+  margin-top: 12px;
+}
+
+.registrados-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.10);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.06);
+}
+
+.registrados-table thead th {
+  text-align: left;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 12px 14px;
+  background: rgba(17, 24, 39, 0.04);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  letter-spacing: 0.2px;
+}
+
+.registrados-table tbody td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  vertical-align: middle;
+  font-size: 14px;
+}
+
+.registrados-table tbody tr:hover td {
+  background: rgba(17, 24, 39, 0.02);
+}
+
+.registrados-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Columns */
+.col-nombre { width: 44%; }
+.col-rut { width: 16%; }
+.col-region { width: 18%; }
+.col-rubro { width: 14%; }
+.col-acciones { width: 8%; }
+
+.cell-title {
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.cell-sub {
+  margin-top: 4px;
+  opacity: 0.7;
+  font-size: 12px;
+}
+
+/* Actions row */
+.actions-row {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Icon buttons */
+.btn-icon {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 16px;
+  box-shadow: none;
+}
+
+.btn-icon.view {
+  background: rgba(59, 130, 246, 0.10);
+  border-color: rgba(59, 130, 246, 0.22);
+  color: #1d4ed8;
+}
+
+.btn-icon.edit {
+  background: rgba(234, 179, 8, 0.12);
+  border-color: rgba(234, 179, 8, 0.25);
+  color: #92400e;
+}
+
+.btn-icon.danger {
+  background: rgba(239, 68, 68, 0.10);
+  border-color: rgba(239, 68, 68, 0.22);
+  color: #b91c1c;
+}
+
+/* Mobile cards */
+.registrados-cards {
+  display: none;
+  margin-top: 14px;
+  gap: 12px;
+}
+
+.registrado-card {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.10);
+  border-radius: 18px;
+  padding: 14px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.06);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.card-sub {
+  margin-top: 4px;
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+.card-chip {
+  font-size: 12px;
+  font-weight: 900;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.06);
+  border: 1px solid rgba(0,0,0,0.08);
+  white-space: nowrap;
+}
+
+.card-kv {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: rgba(17, 24, 39, 0.03);
+  border: 1px solid rgba(0,0,0,0.06);
+  margin-top: 8px;
+}
+
+.card-kv span {
+  opacity: 0.7;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.card-kv strong {
+  font-weight: 900;
+  font-size: 13px;
+}
+
+/* Mini buttons (mobile) */
+.card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.btn-mini {
+  flex: 1;
+  justify-content: center;
+  border-radius: 14px;
+  padding: 10px 10px;
+  font-weight: 900;
+  box-shadow: none;
+}
+
+.btn-mini.view {
+  background: rgba(59, 130, 246, 0.10);
+  border-color: rgba(59, 130, 246, 0.22);
+  color: #1d4ed8;
+}
+
+.btn-mini.edit {
+  background: rgba(234, 179, 8, 0.12);
+  border-color: rgba(234, 179, 8, 0.25);
+  color: #92400e;
+}
+
+.btn-mini.danger {
+  background: rgba(239, 68, 68, 0.10);
+  border-color: rgba(239, 68, 68, 0.22);
+  color: #b91c1c;
+}
+
+/* ===============================
+   Responsive
+================================ */
+
+/* <= 980px: filtros pasan a 2 columnas */
+@media (max-width: 980px) {
+  .filters-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .filter-actions {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+  }
+}
+
+/* <= 720px: ocultar tabla y usar cards */
+@media (max-width: 720px) {
+  .registrados-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-primary {
+    justify-content: center;
+  }
+
+  .registrados-table {
+    display: none;
+  }
+
+  .registrados-cards {
+    display: grid;
+  }
+
+  .filters-card {
+    padding: 12px;
+  }
+
+  .filters-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-actions {
+    justify-content: stretch;
+  }
+
+  .btn-action {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .btn-action.icon-only {
+    width: 100%;
+  }
+
+  .card-actions {
+    flex-direction: column;
+  }
+
+  .btn-mini {
+    width: 100%;
+  }
+}

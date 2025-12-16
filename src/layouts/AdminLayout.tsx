@@ -37,11 +37,12 @@ export default function AdminLayout() {
           </NavLink>
 
           {/* después lo activamos */}
-          <NavLink
-            to="/admin/integrantes"
+      
+           <NavLink
+            to="/admin/registrados"
             className={({ isActive }) => (isActive ? "side-item active" : "side-item")}
           >
-            👥 Integrantes
+            👥 Registrados
           </NavLink>
 
           <NavLink

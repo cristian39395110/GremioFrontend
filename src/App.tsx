@@ -6,6 +6,9 @@ import NuevoGremioPage from "./pages/admin/NuevoGremioPage";
 import GremioDetallePage from "./pages/admin/GremioDetallePage";
 import AdminSeguridadPage from "./pages/admin/AdminSeguridadPage";
 
+import RegistradosPage from "./pages/admin/RegistradosPage";
+
+
 import AdminLayout from "./layouts/AdminLayout";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
 
@@ -33,6 +36,7 @@ function App() {
           <Route path="gremios/nuevo" element={<NuevoGremioPage />} />
           <Route path="gremios/:id" element={<NuevoGremioPage />} />
           <Route path="gremios/:id/ver" element={<GremioDetallePage />} />
+            <Route path="registrados" element={<RegistradosPage />} />
 
           {/* seguridad */}
           <Route path="seguridad" element={<AdminSeguridadPage />} />

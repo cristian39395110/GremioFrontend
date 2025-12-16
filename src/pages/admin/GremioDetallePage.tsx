@@ -146,9 +146,7 @@ export default function GremioDetallePage() {
 
             {gremio.cartaPdfUrl ? (
               <div className="gd-pdf-actions">
-                <a className="gd-link" href={gremio.cartaPdfUrl} target="_blank" rel="noreferrer">
-                  Ver PDF
-                </a>
+           
                 <button
                   type="button"
                   className="gd-btn small"
@@ -198,9 +196,7 @@ export default function GremioDetallePage() {
                     <div className="gd-int-actions">
                       {i.fotoUrl ? (
                         <>
-                          <a className="gd-link" href={i.fotoUrl} target="_blank" rel="noreferrer">
-                            Ver foto
-                          </a>
+                         
                           <button
                             type="button"
                             className="gd-btn small"
