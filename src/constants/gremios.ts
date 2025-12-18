@@ -81,12 +81,12 @@ export const TIPOS_EMPRESA = [
 ] as const;
 
 export const NUM_TRABAJADORES = [
-  "1  a 9 ",
+  "1 a 9",
   "10 a 50",
   "51-200",
   "Mas de 200",
- 
 ] as const;
+
 
 export const RUBROS_REGISTRO = [
   "Acuicultura / Pesca / Salmonicultura",

@@ -131,7 +131,10 @@ setComunas(comunasOk);
         // set fields
         setNombres(data?.nombres || "");
         setApellidos(data?.apellidos || "");
-        setGenero(data?.genero || "");
+        const genDB = String(data?.genero ?? "").trim();
+const genMatch = GENEROS.find((g) => g.trim().toLowerCase() === genDB.toLowerCase()) || "";
+setGenero(genMatch);
+
         setFechaNacimiento(data?.fechaNacimiento || "");
         setRut(data?.rut || "");
         setTelefono(data?.telefono || "");
