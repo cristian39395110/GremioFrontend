@@ -462,3 +462,16 @@
     width: 100%;
   }
 }
+.pager {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pager-info {
+  font-size: 14px;
+  opacity: 0.9;
+}
