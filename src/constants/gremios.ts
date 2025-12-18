@@ -54,7 +54,7 @@ export const CARGOS = [
 
 // src/constants/registrados.ts
 
-export const GENEROS = ["Masculino", "Femenino", "Otro", "Prefiero no decir"] as const;
+export const GENEROS = ["Masculino", "Femenino "] as const;
 
 export const REGIONES_CHILE = [
   "Arica y Parinacota",
@@ -66,7 +66,7 @@ export const REGIONES_CHILE = [
   "Metropolitana",
   "O’Higgins",
   "Maule",
-  "Ñuble",
+  "Ñuble", 
   "Biobío",
   "La Araucanía",
   "Los Ríos",
@@ -76,43 +76,71 @@ export const REGIONES_CHILE = [
 ] as const;
 
 export const TIPOS_EMPRESA = [
-  "Persona natural",
-  "SpA",
-  "EIRL",
-  "Ltda",
-  "S.A.",
-  "Fundación",
-  "Otra",
+ "Pyme",
+ "Emprendedor",
 ] as const;
 
 export const NUM_TRABAJADORES = [
-  "1-5",
-  "6-10",
-  "11-20",
-  "21-50",
-  "51-100",
-  "101+",
+  "1  a 9 ",
+  "10 a 50",
+  "51-200",
+  "Mas de 200",
+ 
 ] as const;
 
 export const RUBROS_REGISTRO = [
+  "Acuicultura / Pesca / Salmonicultura",
+  "Aduanas / Portuario",
+  "Agricultura",
+  "Banquetería / Eventos / Gastronomía",
+  "Canalistas / Regantes",
   "Comercio",
-  "Servicios",
   "Construcción",
-  "Transporte",
-  "Manufactura",
-  "Tecnología",
-  "Salud",
-  "Educación",
-  "Turismo",
-  "Otros",
+  "Corporación",
+  "Co-Work",
+  "Deporte",
+  "Energía",
+  "Financiero",
+  "Forestal / Silvicultura",
+  "Fundación",
+  "Ganadería / Lechería",
+  "Hotelería / Turismo",
+  "Industrial",
+  "Minería",
+  "Multisectorial",
+  "Panaderos",
+  "Peluquería",
+  "Reciclaje",
+  "Remolachero",
+  "Seguridad",
 ] as const;
 
+
 export const ASESORIAS = [
-  "Formalización / Legal",
-  "Finanzas / Contabilidad",
-  "Marketing / Ventas",
-  "RRHH",
-  "Tecnología",
-  "Postulación a fondos",
-  "Otra",
+  "Asociatividad Ramal",
+  "Conformación legal",
+  "Contabilidadgratuita.cl",
+  "Departamento de Estudios",
+  "Formación",
+  "Gestión de medios",
+  "Imagen de marca",
+  "Políticas Públicas",
+  "Redes sociales",
+  "Sitio web 2.0",
+] as const;
+
+// src/constants/comunas.ts
+
+export const COMUNAS_MAGALLANES = [
+  "Antártica",
+  "Cabo de Hornos",
+  "Laguna Blanca",
+  "Natales",
+  "Porvenir",
+  "Primavera",
+  "Punta Arenas",
+  "Río Verde",
+  "San Gregorio",
+  "Timaukel",
+  "Torres del Paine",
 ] as const;

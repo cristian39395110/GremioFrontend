@@ -6,6 +6,8 @@ import NuevoGremioPage from "./pages/admin/NuevoGremioPage";
 import GremioDetallePage from "./pages/admin/GremioDetallePage";
 import AdminSeguridadPage from "./pages/admin/AdminSeguridadPage";
 
+import RegistradoDetallePage from "./pages/admin/RegistradoDetallePage";
+import NuevoRegistradoPage from "./pages/admin/NuevoRegistradoPage";
 import RegistradosPage from "./pages/admin/RegistradosPage";
 
 
@@ -36,7 +38,21 @@ function App() {
           <Route path="gremios/nuevo" element={<NuevoGremioPage />} />
           <Route path="gremios/:id" element={<NuevoGremioPage />} />
           <Route path="gremios/:id/ver" element={<GremioDetallePage />} />
-            <Route path="registrados" element={<RegistradosPage />} />
+
+               <Route path="registrados" element={<RegistradosPage />} />
+          <Route path="registrados/nuevo" element={<NuevoRegistradoPage />} />
+
+          <Route path="registrados/:id/ver" element={<RegistradoDetallePage />} />
+<Route path="registrados/:id/editar" element={<RegistradoDetallePage />} />
+
+       
+          
+
+            
+
+
+            <Route path="/admin/registrados/nuevo" element={<NuevoRegistradoPage />} />
+
 
           {/* seguridad */}
           <Route path="seguridad" element={<AdminSeguridadPage />} />

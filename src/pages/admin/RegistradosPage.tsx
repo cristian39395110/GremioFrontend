@@ -2,14 +2,14 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./RegistradosPage.css";
 
+
 import {
-  REGIONES_CHILE,
+  
   TIPOS_EMPRESA,
-  NUM_TRABAJADORES,
   RUBROS_REGISTRO,
-  GENEROS,
-  ASESORIAS,
-} from "../../constants/gremios";
+
+}  from "../../constants/gremios";
+
 
 import { FaEye, FaEdit, FaTrash, FaSyncAlt, FaPlus, FaBroom } from "react-icons/fa";
 
@@ -31,7 +31,8 @@ type Registrado = {
   tipoEmpresa?: string | null;
   numeroTrabajadores?: string | null;
   rubro?: string | null;
-  deseaAsesoria?: string | null;
+  asesoriaSobre?: string | null;
+
 
   createdAt?: string;
 };
@@ -42,6 +43,11 @@ export default function RegistradosPage() {
   const [items, setItems] = useState<Registrado[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  type RegionAPI = { codigo: string; nombre: string; tipo?: string };
+
+const [regionesApi, setRegionesApi] = useState<RegionAPI[]>([]);
+const [loadingRegiones, setLoadingRegiones] = useState(false);
+
 
   // filtros
   const [qTexto, setQTexto] = useState("");
@@ -49,17 +55,44 @@ export default function RegistradosPage() {
   const [qRubro, setQRubro] = useState("");
   const [qTipoEmpresa, setQTipoEmpresa] = useState("");
 
+
+
+  const loadRegiones = async () => {
+  setLoadingRegiones(true);
+  try {
+    const resp = await fetch(`${API_URL}/api/admin/registros/regiones`);
+    const data = await resp.json().catch(() => null);
+
+    if (!resp.ok) throw new Error(data?.message || "No pude cargar regiones");
+
+    const regionesOk = Array.isArray(data)
+      ? data.filter((x) => x?.tipo === "region" && x?.nombre)
+      : [];
+
+    regionesOk.sort((a, b) => a.nombre.localeCompare(b.nombre, "es"));
+
+    setRegionesApi(regionesOk);
+  } catch (e) {
+    console.error(e);
+    setRegionesApi([]);
+  } finally {
+    setLoadingRegiones(false);
+  }
+};
+
+
   const load = async () => {
     setLoading(true);
     setError(null);
 
     try {
-      const resp = await fetch(`${API_URL}/api/admin/registrados`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
+    const resp = await fetch(`${API_URL}/api/admin/registros`, {
+  headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+});
+
 
       const data = await resp.json();
-      if (!resp.ok) throw new Error(data?.message || "Error al cargar registrados");
+      if (!resp.ok) throw new Error(data?.message || " Error al cargar registrados");
 
       setItems(Array.isArray(data) ? data : []);
     } catch (e: any) {
@@ -73,7 +106,7 @@ export default function RegistradosPage() {
     if (!window.confirm("¿Eliminar este registro?")) return;
 
     try {
-      const resp = await fetch(`${API_URL}/api/admin/registrados/${id}`, {
+      const resp = await fetch(`${API_URL}/api/admin/registros/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
@@ -89,9 +122,12 @@ export default function RegistradosPage() {
     }
   };
 
-  useEffect(() => {
-    load();
-  }, []);
+
+useEffect(() => {
+  load();
+  loadRegiones();
+}, []);
+
 
   const filtrados = useMemo(() => {
     const t = qTexto.trim().toLowerCase();
@@ -151,14 +187,20 @@ export default function RegistradosPage() {
 
           <div className="filter-item">
             <label>Región</label>
-            <select value={qRegion} onChange={(e) => setQRegion(e.target.value)}>
-              <option value="">Todas</option>
-              {REGIONES_CHILE.map((r) => (
-                <option key={r} value={r}>
-                  {r}
-                </option>
-              ))}
-            </select>
+   <select
+  value={qRegion}
+  onChange={(e) => setQRegion(e.target.value)}
+  disabled={loadingRegiones}
+>
+  <option value="">{loadingRegiones ? "Cargando..." : "Todas"}</option>
+
+  {regionesApi.map((r) => (
+    <option key={r.codigo} value={r.nombre}>
+      {r.nombre}
+    </option>
+  ))}
+</select>
+
           </div>
 
           <div className="filter-item">
@@ -259,7 +301,7 @@ export default function RegistradosPage() {
                       <button
                         className="btn-icon view"
                         title="Ver"
-                        onClick={() => navigate(`/admin/registrados/${r.id}/ver`)}
+                         onClick={() => navigate(`/admin/registrados/${r.id}/ver`)}
                       >
                         <FaEye />
                       </button>
@@ -267,7 +309,7 @@ export default function RegistradosPage() {
                       <button
                         className="btn-icon edit"
                         title="Editar"
-                        onClick={() => navigate(`/admin/registrados/${r.id}`)}
+                        onClick={() => navigate(`/admin/registrados/${r.id}/editar`)}
                       >
                         <FaEdit />
                       </button>
@@ -312,7 +354,7 @@ export default function RegistradosPage() {
                   <button className="btn-mini view" onClick={() => navigate(`/admin/registrados/${r.id}/ver`)}>
                     <FaEye /> Ver
                   </button>
-                  <button className="btn-mini edit" onClick={() => navigate(`/admin/registrados/${r.id}`)}>
+                  <button className="btn-mini edit" onClick={() => navigate(`/admin/registrados/${r.id}/editar`)}>
                     <FaEdit /> Editar
                   </button>
                   <button className="btn-mini danger" onClick={() => eliminar(r.id)}>

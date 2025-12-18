@@ -146,8 +146,10 @@
 
 .filter-actions {
   display: flex;
-  gap: 10px;
+  gap: 20px;
+  margin-bottom: 13px;
   justify-content: flex-end;
+  
 }
 
 .filters-info {
