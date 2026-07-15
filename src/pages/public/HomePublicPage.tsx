@@ -24,7 +24,7 @@ type Grupo = {
 export default function HomePublicPage() {
   const [gremios, setGremios] = useState<Gremio[]>([]);
   const [rubros, setRubros] = useState<Grupo[]>([]);
-  const [regiones, setRegiones] = useState<Grupo[]>([]);
+  const [, setRegiones] = useState<Grupo[]>([]);
 
   useEffect(() => {
     cargarHome();

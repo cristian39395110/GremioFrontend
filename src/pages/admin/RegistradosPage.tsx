@@ -5,8 +5,8 @@ import "./RegistradosPage.css";
 import {
   REGIONES,
   TIPOS_EMPRESA,
-  RUBROS_REGISTRO,
-   CARGOS,
+  RUBROS_REGISTRO
+ 
 } from "../../constants/gremios";
 import { FaEye, FaEdit, FaTrash, FaSyncAlt, FaPlus, FaBroom } from "react-icons/fa";
 
