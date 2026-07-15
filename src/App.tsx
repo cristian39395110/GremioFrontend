@@ -10,18 +10,44 @@ import RegistradoDetallePage from "./pages/admin/RegistradoDetallePage";
 import NuevoRegistradoPage from "./pages/admin/NuevoRegistradoPage";
 import RegistradosPage from "./pages/admin/RegistradosPage";
 
-
 import AdminLayout from "./layouts/AdminLayout";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
+
+import HomePublicPage from "./pages/public/HomePublicPage";
+import GremiosPublicPage from "./pages/public/GremiosPublicPage";
+import GremioPublicDetallePage from "./pages/public/GremioPublicDetallePage";
+import PublicLayout from "./layouts/PublicLayout";
+import RubrosPublicPage from "./pages/public/RubrosPublicPage";
+import RegionesPublicPage from "./pages/public/RegionesPublicPage";
+import RegistroGremioPage from "./pages/public/RegistroGremioPage"; 
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* PUBLICO */}
+        <Route element={<PublicLayout />}>
+    <Route index element={<HomePublicPage />} />
+
+    <Route path="/gremios" element={<GremiosPublicPage />} />
+    <Route path="/gremios/:id" element={<GremioPublicDetallePage />} />
+
+    <Route path="/rubros" element={<RubrosPublicPage />} />
+    <Route path="/regiones" element={<RegionesPublicPage />} />
+
+    <Route path="/registro-gremio" element={<RegistroGremioPage />} />
+  </Route>
+
+  {/* FORMULARIO PARA IFRAME */}
+<Route
+  path="/iframe/registro-gremio"
+  element={<RegistroGremioPage modoIframe />}
+/>
+
         {/* ADMIN LOGIN */}
         <Route path="/admin/login" element={<LoginPage />} />
 
-        {/* ADMIN PROTEGIDO (Layout + Outlet) */}
+        {/* ADMIN PROTEGIDO */}
         <Route
           path="/admin"
           element={
@@ -30,40 +56,29 @@ function App() {
             </ProtectedRoute>
           }
         >
-          {/* al entrar a /admin */}
           <Route index element={<Navigate to="gremios" replace />} />
 
-          {/* gremios */}
-          <Route path="gremios" element={<GremiosPage />} />
-          <Route path="gremios/nuevo" element={<NuevoGremioPage />} />
-          <Route path="gremios/:id" element={<NuevoGremioPage />} />
-          <Route path="gremios/:id/ver" element={<GremioDetallePage />} />
+<Route path="gremios" element={<GremiosPage estadoInicial="aprobado" />} />
 
-               <Route path="registrados" element={<RegistradosPage />} />
+<Route
+  path="gremios-pendientes"
+  element={<GremiosPage estadoInicial="pendiente" />}
+/>
+
+<Route path="gremios/nuevo" element={<NuevoGremioPage />} />
+<Route path="gremios/:id" element={<NuevoGremioPage />} />
+<Route path="gremios/:id/ver" element={<GremioDetallePage />} />
+
+          <Route path="registrados" element={<RegistradosPage />} />
           <Route path="registrados/nuevo" element={<NuevoRegistradoPage />} />
-
           <Route path="registrados/:id/ver" element={<RegistradoDetallePage />} />
-<Route path="registrados/:id/editar" element={<RegistradoDetallePage />} />
+          <Route path="registrados/:id/editar" element={<RegistradoDetallePage />} />
 
-       
-          
-
-            
-
-
-            <Route path="/admin/registrados/nuevo" element={<NuevoRegistradoPage />} />
-
-
-          {/* seguridad */}
           <Route path="seguridad" element={<AdminSeguridadPage />} />
-
-          {/* más rutas de admin como 'integrantes' */}
-          {/* <Route path="integrantes" element={<IntegrantesPage />} /> */}
         </Route>
 
-        {/* raíz y 404 */}
-        <Route path="/" element={<Navigate to="/admin/login" replace />} />
-        <Route path="*" element={<Navigate to="/admin/login" replace />} />
+        {/* 404 */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );

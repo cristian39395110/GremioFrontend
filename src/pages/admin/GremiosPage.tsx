@@ -1,284 +1,312 @@
-import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./GremiosPage.css";
+    import { useEffect, useMemo, useState } from "react";
+    import { useNavigate } from "react-router-dom";
+    import "./GremiosPage.css";
 
-import { REGIONES, RUBROS } from "../../constants/gremios";
-// ...
-
-
+    import { REGIONES, RUBROS } from "../../constants/gremios";
+    // ...
 
 
-import { FaEye, FaEdit, FaTrash, FaSyncAlt, FaPlus, FaBroom } from "react-icons/fa";
 
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
+    import { FaEye, FaEdit, FaTrash, FaSyncAlt, FaPlus, FaBroom } from "react-icons/fa";
 
 
-export default function GremiosPage() {
-  const navigate = useNavigate();
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
-  const [gremios, setGremios] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
-  // filtros
+    export default function GremiosPage({ estadoInicial = "" }: { estadoInicial?: string }) {
+      const navigate = useNavigate();
 
-  const [qNombre, setQNombre] = useState("");
-  const [qRegion, setQRegion] = useState("");
-  const [qRubro, setQRubro] = useState("");
+      const [gremios, setGremios] = useState<any[]>([]);
+     const [qEstado, setQEstado] = useState<string>(estadoInicial);
+      const [loading, setLoading] = useState(true);
+      const [error, setError] = useState<string | null>(null);
 
-  const loadGremios = async () => {
-    setLoading(true);
-    setError(null);
+      // filtros
 
-    try {
-      const response = await fetch(`${API_URL}/api/admin/gremios`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const [qNombre, setQNombre] = useState("");
+      const [qRegion, setQRegion] = useState("");
+      const [qRubro, setQRubro] = useState("");
 
-      const data = await response.json();
-      if (!response.ok) throw new Error(data?.message || "Error al cargar gremios");
-      setGremios(data);
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+     const loadGremios = async () => {
+  console.log("🔄 Cargando gremios...");
+  setLoading(true);
+  setError(null);
+
+  try {
+    const response = await fetch(`${API_URL}/api/admin/gremios`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+
+    console.log("STATUS:", response.status);
+
+    const data = await response.json();
+    console.log("DATA GREMIOS:", data);
+
+    if (!response.ok) {
+      throw new Error(data?.message || "Error al cargar gremios");
     }
-  };
 
-  const eliminarGremio = async (id: number) => {
-    if (!window.confirm("¿Eliminar este gremio?")) return;
+    setGremios(Array.isArray(data) ? data : []);
+  } catch (err: any) {
+    console.error("❌ Error loadGremios:", err);
+    setError(err.message);
+  } finally {
+    console.log("✅ Terminó carga");
+    setLoading(false);
+  }
+};
 
-    try {
-      const resp = await fetch(`${API_URL}/api/admin/gremios/${id}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const eliminarGremio = async (id: number) => {
+        if (!window.confirm("¿Eliminar este gremio?")) return;
 
-      if (!resp.ok) {
-        const data = await resp.json().catch(() => null);
-        throw new Error(data?.message || "No se pudo eliminar");
-      }
+        try {
+          const resp = await fetch(`${API_URL}/api/admin/gremios/${id}`, {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
 
-      loadGremios();
-    } catch (e: any) {
-      setError(e.message || "Error al eliminar");
-    }
-  };
+          if (!resp.ok) {
+            const data = await resp.json().catch(() => null);
+            throw new Error(data?.message || "No se pudo eliminar");
+          }
 
-  useEffect(() => {
-    loadGremios();
-  }, []);
+          loadGremios();
+        } catch (e: any) {
+          setError(e.message || "Error al eliminar");
+        }
+      };
 
-  // filtro en frontend (rápido)
- const gremiosFiltrados = useMemo(() => {
+   useEffect(() => {
+  setQEstado(estadoInicial);
+}, [estadoInicial]);
+
+      // filtro en frontend (rápido)
+const gremiosFiltrados = useMemo(() => {
   const n = qNombre.trim().toLowerCase();
   const rg = qRegion.trim().toLowerCase();
   const rb = qRubro.trim().toLowerCase();
+  const est = qEstado.trim().toLowerCase();
 
   return gremios.filter((g) => {
     const nombreOk = !n || String(g.nombre || "").toLowerCase().includes(n);
     const regionOk = !rg || String(g.region || "").toLowerCase() === rg;
-    const rubroOk  = !rb || String(g.rubro || "").toLowerCase() === rb;
+    const rubroOk = !rb || String(g.rubro || "").toLowerCase() === rb;
+    const estadoOk = !est || String(g.estado || "").toLowerCase() === est;
 
-    return nombreOk && regionOk && rubroOk;
+    return nombreOk && regionOk && rubroOk && estadoOk;
   });
-}, [gremios, qNombre, qRegion, qRubro]);
+}, [gremios, qNombre, qRegion, qRubro, qEstado]);
 
 
-const limpiarFiltros = () => {
+  const limpiarFiltros = () => {
   setQNombre("");
   setQRegion("");
   setQRubro("");
+  setQEstado(estadoInicial);
 };
 
+useEffect(() => {
+  loadGremios();
+}, []);
 
-  return (
-    <div className="gremios-page">
-      <div className="gremios-header">
-        <div>
-          <h2>Gremios</h2>
-          <div className="gremios-sub">Listado y administración</div>
-        </div>
 
-        <button className="btn-primary" onClick={() => navigate("/admin/gremios/nuevo")}>
-          <FaPlus /> Nuevo Gremio
-        </button>
-      </div>
+      return (
+        <div className="gremios-page">
+          <div className="gremios-header">
+            <div>
+              <h2>{estadoInicial === "pendiente" ? "Gremios pendientes" : "Gremios"}</h2>
+              <div className="gremios-sub">Listado y administración</div>
+            </div>
 
-      {/* filtros */}
-      <div className="filters-card">
-        <div className="filters-grid">
-          <div className="filter-item">
-            <label>Nombre</label>
-            <input
-              value={qNombre}
-              onChange={(e) => setQNombre(e.target.value)}
-              placeholder="Buscar por nombre…"
-            />
+            <button className="btn-primary" onClick={() => navigate("/admin/gremios/nuevo")}>
+              <FaPlus /> Nuevo Gremio
+            </button>
           </div>
 
-  <div className="filter-item">
-  <label>Región</label>
-  <select value={qRegion} onChange={(e) => setQRegion(e.target.value)}>
-    <option value="">Todas</option>
-    {(REGIONES || []).map((r: string) => (
-      <option key={r} value={r}>
-        {r}
-      </option>
-    ))}
+          {/* filtros */}
+          <div className="filters-card">
+            <div className="filters-grid">
+              <div className="filter-item">
+                <label>Nombre</label>
+                <input
+                  value={qNombre}
+                  onChange={(e) => setQNombre(e.target.value)}
+                  placeholder="Buscar por nombre…"
+                />
+              </div>
+
+      <div className="filter-item">
+      <label>Región</label>
+      <select value={qRegion} onChange={(e) => setQRegion(e.target.value)}>
+        <option value="">Todas</option>
+        {(REGIONES || []).map((r: string) => (
+          <option key={r} value={r}>
+            {r}
+          </option>
+        ))}
+      </select>
+    </div>
+
+
+              <div className="filter-item">
+                <label>Rubro</label>
+                <select value={qRubro} onChange={(e) => setQRubro(e.target.value)}>
+                  <option value="">Todos</option>
+                  {(RUBROS || []).map((r: string) => (
+                    <option key={r} value={r}>
+                      {r}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="filter-item">
+  <label>Estado</label>
+  <select value={qEstado} onChange={(e) => setQEstado(e.target.value)}>
+    <option value="">Todos</option>
+    <option value="pendiente">Pendientes</option>
+    <option value="aprobado">Aprobados</option>
+    <option value="rechazado">Rechazados</option>
   </select>
 </div>
 
+    <div className="filter-actions">
+      <button className="btn-action" type="button" onClick={limpiarFiltros}>
+        <FaBroom /> Limpiar
+      </button>
 
-          <div className="filter-item">
-            <label>Rubro</label>
-            <select value={qRubro} onChange={(e) => setQRubro(e.target.value)}>
-              <option value="">Todos</option>
-              {(RUBROS || []).map((r: string) => (
-                <option key={r} value={r}>
-                  {r}
-                </option>
-              ))}
-            </select>
+      <button className="btn-action icon-only" type="button" onClick={loadGremios} title="Refrescar">
+        <FaSyncAlt />
+      </button>
+    </div>
+
+            </div>
+
+            <div className="filters-info">
+              Mostrando <strong>{gremiosFiltrados.length}</strong> de{" "}
+              <strong>{gremios.length}</strong>
+            </div>
           </div>
 
-<div className="filter-actions">
-  <button className="btn-action" type="button" onClick={limpiarFiltros}>
-    <FaBroom /> Limpiar
-  </button>
+          {loading && <div className="loader">Cargando gremios…</div>}
+          {error && <div className="error-box">{error}</div>}
 
-  <button className="btn-action icon-only" type="button" onClick={loadGremios} title="Refrescar">
-    <FaSyncAlt />
-  </button>
-</div>
+          {!loading && gremios.length === 0 && (
+            <div className="empty-state">
+              <div className="empty-icon">🏛️</div>
+              <h3>No hay gremios cargados</h3>
+              <p>Comenzá creando el primer gremio del sistema.</p>
+              <button className="btn-primary" onClick={() => navigate("/admin/gremios/nuevo")}>
+                <FaPlus /> Crear Gremio
+              </button>
+            </div>
+          )}
 
-        </div>
+          {!loading && gremios.length > 0 && gremiosFiltrados.length === 0 && (
+            <div className="empty-state">
+              <div className="empty-icon">🔎</div>
+              <h3>No hay resultados</h3>
+              <p>Probá cambiando los filtros.</p>
+              <button className="btn-secondary" onClick={limpiarFiltros}>
+                Limpiar filtros
+              </button>
+            </div>
+          )}
 
-        <div className="filters-info">
-          Mostrando <strong>{gremiosFiltrados.length}</strong> de{" "}
-          <strong>{gremios.length}</strong>
-        </div>
-      </div>
+          {/* DESKTOP tabla */}
+          {gremiosFiltrados.length > 0 && (
+            <div className="gremios-table-wrapper">
+              <table className="gremios-table">
+                <thead>
+                  <tr>
+                    <th className="col-nombre">Nombre</th>
+                    <th className="col-rut">RUT</th>
+                    <th className="col-rubro">Rubro</th>
+                    <th className="col-acciones">Acciones</th>
+                  </tr>
+                </thead>
 
-      {loading && <div className="loader">Cargando gremios…</div>}
-      {error && <div className="error-box">{error}</div>}
+                <tbody>
+                  {gremiosFiltrados.map((g) => (
+                    <tr key={g.id}>
+                      <td className="col-nombre">
+                        <div className="cell-title">{g.nombre}</div>
+                        <div className="cell-sub">{g.region || ""}</div>
+                      </td>
 
-      {!loading && gremios.length === 0 && (
-        <div className="empty-state">
-          <div className="empty-icon">🏛️</div>
-          <h3>No hay gremios cargados</h3>
-          <p>Comenzá creando el primer gremio del sistema.</p>
-          <button className="btn-primary" onClick={() => navigate("/admin/gremios/nuevo")}>
-            <FaPlus /> Crear Gremio
-          </button>
-        </div>
-      )}
+                      <td className="col-rut">{g.rut}</td>
+                      <td className="col-rubro">{g.rubro}</td>
 
-      {!loading && gremios.length > 0 && gremiosFiltrados.length === 0 && (
-        <div className="empty-state">
-          <div className="empty-icon">🔎</div>
-          <h3>No hay resultados</h3>
-          <p>Probá cambiando los filtros.</p>
-          <button className="btn-secondary" onClick={limpiarFiltros}>
-            Limpiar filtros
-          </button>
-        </div>
-      )}
+                      <td className="col-acciones">
+                        <div className="actions-row">
+                          <button
+                            className="btn-icon view"
+                            title="Ver"
+                            onClick={() => navigate(`/admin/gremios/${g.id}/ver`)}
+                          >
+                            <FaEye />
+                          </button>
 
-      {/* DESKTOP tabla */}
-      {gremiosFiltrados.length > 0 && (
-        <div className="gremios-table-wrapper">
-          <table className="gremios-table">
-            <thead>
-              <tr>
-                <th className="col-nombre">Nombre</th>
-                <th className="col-rut">RUT</th>
-                <th className="col-rubro">Rubro</th>
-                <th className="col-acciones">Acciones</th>
-              </tr>
-            </thead>
+                          <button
+                            className="btn-icon edit"
+                            title="Editar"
+                            onClick={() => navigate(`/admin/gremios/${g.id}`)}
+                          >
+                            <FaEdit />
+                          </button>
 
-            <tbody>
-              {gremiosFiltrados.map((g) => (
-                <tr key={g.id}>
-                  <td className="col-nombre">
-                    <div className="cell-title">{g.nombre}</div>
-                    <div className="cell-sub">{g.region || ""}</div>
-                  </td>
+                          <button
+                            className="btn-icon danger"
+                            title="Eliminar"
+                            onClick={() => eliminarGremio(g.id)}
+                          >
+                            <FaTrash />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
 
-                  <td className="col-rut">{g.rut}</td>
-                  <td className="col-rubro">{g.rubro}</td>
+              {/* MOBILE cards */}
+              <div className="gremios-cards">
+                {gremiosFiltrados.map((g) => (
+                  <div key={g.id} className="gremio-card">
+                    <div className="card-top">
+                      <div>
+                        <h4 className="card-title">{g.nombre}</h4>
+                        <div className="card-sub">{g.region || ""}</div>
+                      </div>
+                      <div className="card-chip">{g.rubro}</div>
+                    </div>
 
-                  <td className="col-acciones">
-                    <div className="actions-row">
-                      <button
-                        className="btn-icon view"
-                        title="Ver"
-                        onClick={() => navigate(`/admin/gremios/${g.id}/ver`)}
-                      >
-                        <FaEye />
+                    <div className="card-kv">
+                      <span>RUT</span>
+                      <strong>{g.rut}</strong>
+                    </div>
+
+                    <div className="card-actions">
+                      <button className="btn-mini view" onClick={() => navigate(`/admin/gremios/${g.id}/ver`)}>
+                        <FaEye /> Ver
                       </button>
-
-                      <button
-                        className="btn-icon edit"
-                        title="Editar"
-                        onClick={() => navigate(`/admin/gremios/${g.id}`)}
-                      >
-                        <FaEdit />
+                      <button className="btn-mini edit" onClick={() => navigate(`/admin/gremios/${g.id}`)}>
+                        <FaEdit /> Editar
                       </button>
-
-                      <button
-                        className="btn-icon danger"
-                        title="Eliminar"
-                        onClick={() => eliminarGremio(g.id)}
-                      >
-                        <FaTrash />
+                      <button className="btn-mini danger" onClick={() => eliminarGremio(g.id)}>
+                        <FaTrash /> Eliminar
                       </button>
                     </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          {/* MOBILE cards */}
-          <div className="gremios-cards">
-            {gremiosFiltrados.map((g) => (
-              <div key={g.id} className="gremio-card">
-                <div className="card-top">
-                  <div>
-                    <h4 className="card-title">{g.nombre}</h4>
-                    <div className="card-sub">{g.region || ""}</div>
                   </div>
-                  <div className="card-chip">{g.rubro}</div>
-                </div>
-
-                <div className="card-kv">
-                  <span>RUT</span>
-                  <strong>{g.rut}</strong>
-                </div>
-
-                <div className="card-actions">
-                  <button className="btn-mini view" onClick={() => navigate(`/admin/gremios/${g.id}/ver`)}>
-                    <FaEye /> Ver
-                  </button>
-                  <button className="btn-mini edit" onClick={() => navigate(`/admin/gremios/${g.id}`)}>
-                    <FaEdit /> Editar
-                  </button>
-                  <button className="btn-mini danger" onClick={() => eliminarGremio(g.id)}>
-                    <FaTrash /> Eliminar
-                  </button>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          )}
         </div>
-      )}
-    </div>
-  );
-}
+      );
+    }

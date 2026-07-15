@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { REGIONES, RUBROS, CARGOS } from "../../constants/gremios";
+import { COMUNAS_POR_REGION } from "../../constants/comunas";
 import "./NuevoGremioPage.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
@@ -15,6 +16,7 @@ type IntegranteForm = {
   fotoUrl?: string | null;     // foto ACTUAL
 };
 
+
 export default function NuevoGremioPage() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -24,6 +26,15 @@ export default function NuevoGremioPage() {
   const [rut, setRut] = useState("");
   const [rubro, setRubro] = useState("");
   const [region, setRegion] = useState("");
+  const [fechaCreacion, setFechaCreacion] = useState("");
+const [numeroSocios, setNumeroSocios] = useState("");
+const [numeroEmpresas, setNumeroEmpresas] = useState("");
+const [provincia, setProvincia] = useState("");
+const [ciudad, setCiudad] = useState("");
+const [direccion, setDireccion] = useState("");
+const [sitioWeb, setSitioWeb] = useState("");
+const [email, setEmail] = useState("");
+const [redesSociales, setRedesSociales] = useState("");
   const [descripcion, setDescripcion] = useState("");
 
   const [logo, setLogo] = useState<File | null>(null);
@@ -94,6 +105,15 @@ const actualizarIntegrante = <K extends keyof IntegranteForm>(
       if (rut.trim()) formData.append("rut", rut.trim());
       formData.append("rubro", rubro);
       formData.append("region", region);
+      formData.append("fechaCreacion", fechaCreacion);
+formData.append("numeroSocios", numeroSocios);
+formData.append("numeroEmpresas", numeroEmpresas);
+formData.append("provincia", provincia);
+formData.append("ciudad", ciudad);
+formData.append("direccion", direccion);
+formData.append("sitioWeb", sitioWeb);
+formData.append("email", email);
+formData.append("redesSociales", redesSociales);
       formData.append("descripcion", descripcion);
 
       if (logo) formData.append("logo", logo);
@@ -203,6 +223,15 @@ const descargarArchivo = async (url: string, nombre: string) => {
         setRut(data.rut || "");
         setRubro(data.rubro || "");
         setRegion(data.region || "");
+        setFechaCreacion(data.fechaCreacion || "");
+setNumeroSocios(data.numeroSocios || "");
+setNumeroEmpresas(data.numeroEmpresas || "");
+setProvincia(data.provincia || "");
+setCiudad(data.ciudad || "");
+setDireccion(data.direccion || "");
+setSitioWeb(data.sitioWeb || "");
+setEmail(data.email || "");
+setRedesSociales(data.redesSociales || "");
         setDescripcion(data.descripcion || "");
 
         setLogoActualUrl(data.logoUrl || null);
@@ -229,6 +258,9 @@ const descargarArchivo = async (url: string, nombre: string) => {
     cargar();
   }, [esEdicion, id]);
 
+
+  const comunasDisponibles = COMUNAS_POR_REGION[region] || [];
+
   /* =====================
      RENDER
   ====================== */
@@ -254,10 +286,50 @@ const descargarArchivo = async (url: string, nombre: string) => {
           {RUBROS.map(r => <option key={r}>{r}</option>)}
         </select>
 
-        <select value={region} onChange={e => setRegion(e.target.value)}>
+       <select
+  value={region}
+  onChange={(e) => {
+    setRegion(e.target.value);
+    setCiudad("");
+    
+  }}
+>
           <option value="">Seleccionar región</option>
           {REGIONES.map(r => <option key={r}>{r}</option>)}
         </select>
+
+<select
+  value={ciudad}
+  onChange={(e) => setCiudad(e.target.value)}
+  disabled={!region}
+>
+  <option value="">
+    {!region ? "Seleccionar región primero" : "Seleccionar comuna"}
+  </option>
+
+  {comunasDisponibles.map((comuna) => (
+    <option key={comuna} value={comuna}>
+      {comuna}
+    </option>
+  ))}
+</select>
+
+<input type="date" value={fechaCreacion} onChange={e => setFechaCreacion(e.target.value)} />
+
+<input placeholder="Número de socios" value={numeroSocios} onChange={e => setNumeroSocios(e.target.value)} />
+
+<input placeholder="Número de empresas" value={numeroEmpresas} onChange={e => setNumeroEmpresas(e.target.value)} />
+
+
+
+<input placeholder="Dirección" value={direccion} onChange={e => setDireccion(e.target.value)} />
+
+<input placeholder="Sitio web" value={sitioWeb} onChange={e => setSitioWeb(e.target.value)} />
+
+<input placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
+
+<input placeholder="Redes sociales" value={redesSociales} onChange={e => setRedesSociales(e.target.value)} />
+
 
         <textarea placeholder="Descripción" value={descripcion} onChange={e => setDescripcion(e.target.value)} />
 {/* ===== Logo ===== */}

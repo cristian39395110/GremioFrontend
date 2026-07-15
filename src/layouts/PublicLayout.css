@@ -1,0 +1,145 @@
+.public-layout {
+  min-height: 100vh;
+  background: #f5f7fb;
+  color: #14213d;
+}
+
+.public-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #07172f;
+  border-bottom: 4px solid #008fc5;
+}
+
+.public-header-inner {
+  width: min(1180px, calc(100% - 24px));
+  margin: 0 auto;
+  min-height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.public-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+  background: white;
+  padding: 8px 12px;
+  border-radius: 2px;
+}
+
+.public-logo img {
+  height: 54px;
+  width: auto;
+  display: block;
+}
+
+.public-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+}
+
+.public-nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 13px;
+  padding: 12px 10px;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+}
+
+.public-nav a:hover,
+.public-nav a.active {
+  color: #39bdf2;
+  border-bottom-color: #39bdf2;
+}
+
+.public-nav-button {
+  background: #008fc5;
+  color: white !important;
+  padding: 12px 16px !important;
+  border-radius: 999px;
+  border-bottom: 0 !important;
+  margin-left: 4px;
+}
+
+.public-nav-button.active {
+  background: white;
+  color: #07172f !important;
+}
+
+.public-main {
+  min-height: calc(100vh - 220px);
+}
+
+.public-footer {
+  background: #07172f;
+  color: white;
+  margin-top: 60px;
+}
+
+.public-footer-inner {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 34px 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.public-footer p {
+  color: #cbd5e1;
+  margin: 8px 0 0;
+}
+
+.public-footer-links {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.public-footer-links a {
+  color: #e2e8f0;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+@media (max-width: 820px) {
+  .public-header-inner {
+    min-height: auto;
+    padding: 12px 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .public-logo img {
+    height: 42px;
+  }
+
+  .public-nav {
+    width: 100%;
+    gap: 8px;
+    padding-bottom: 4px;
+  }
+
+  .public-nav a {
+    font-size: 12px;
+    padding: 9px 8px;
+  }
+
+  .public-nav-button {
+    padding: 9px 12px !important;
+  }
+
+  .public-footer-inner {
+    flex-direction: column;
+  }
+}

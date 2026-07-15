@@ -1,0 +1,405 @@
+.gremios-public-page {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 54px 0 20px;
+}
+
+/* HERO */
+.gremios-public-hero {
+  min-height: 310px;
+  padding: 42px;
+  background:
+    linear-gradient(120deg, rgba(7, 23, 47, 0.94), rgba(0, 143, 197, 0.7)),
+    url("https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1400&q=80");
+  background-size: cover;
+  background-position: center;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 28px;
+}
+
+.gremios-public-hero span {
+  display: block;
+  margin-bottom: 12px;
+  color: #d8eefb;
+  font-size: 13px;
+  font-weight: 1000;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.gremios-public-hero h1 {
+  margin: 0 0 14px;
+  max-width: 720px;
+  font-size: clamp(38px, 6vw, 68px);
+  line-height: 0.95;
+  font-weight: 1000;
+  letter-spacing: -0.06em;
+}
+
+.gremios-public-hero p {
+  margin: 0;
+  max-width: 660px;
+  color: #e2e8f0;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.gremios-hero-number {
+  width: 140px;
+  height: 140px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: white;
+  color: #008fc5;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  box-shadow: 0 24px 54px rgba(0, 0, 0, 0.24);
+}
+
+.gremios-hero-number strong {
+  display: block;
+  font-size: 38px;
+  line-height: 1;
+  font-weight: 1000;
+}
+
+.gremios-hero-number small {
+  display: block;
+  margin-top: -34px;
+  color: #64748b;
+  font-weight: 900;
+}
+
+/* BUSCADOR */
+.gremios-search-panel {
+  margin-top: -34px;
+  position: relative;
+  z-index: 5;
+  background: white;
+  padding: 14px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  box-shadow: 0 18px 44px rgba(15, 23, 42, 0.14);
+}
+
+.gremios-search-field {
+  min-width: 0;
+  padding: 10px 16px;
+  border-left: 6px solid #008fc5;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.gremios-search-field span {
+  display: block;
+  margin-bottom: 5px;
+  color: #008fc5;
+  font-size: 11px;
+  font-weight: 1000;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.gremios-search-field input {
+  width: 100%;
+  height: 34px;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: #111827;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.gremios-search-panel button {
+  width: 150px;
+  min-height: 68px;
+  border: 0;
+  background: #008fc5;
+  color: white;
+  font-size: 14px;
+  font-weight: 1000;
+  cursor: pointer;
+}
+/* BÚSQUEDA ACTIVA */
+.gremios-active-search {
+  margin-top: 22px;
+  padding: 16px 18px;
+  background: #eef7fd;
+  border-left: 6px solid #008fc5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+}
+
+.gremios-active-search p {
+  margin: 0;
+  color: #334155;
+  font-weight: 700;
+}
+
+.gremios-active-search strong {
+  color: #008fc5;
+}
+
+.gremios-active-search button {
+  border: 0;
+  background: #111827;
+  color: white;
+  padding: 10px 15px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+/* GRID */
+.gremios-grid {
+  margin-top: 42px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 18px;
+}
+
+.gremio-card {
+  min-height: 250px;
+  background: white;
+  color: #111827;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  border-top: 6px solid #008fc5;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  transition: 0.2s ease;
+}
+
+.gremio-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 48px rgba(15, 23, 42, 0.14);
+}
+
+.gremio-logo-box {
+  height: 108px;
+  display: grid;
+  place-items: center;
+  background: #f1f5f9;
+  padding: 16px;
+}
+
+.gremio-logo-box img {
+  max-width: 92px;
+  max-height: 76px;
+  object-fit: contain;
+}
+
+.gremio-logo-box span {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: #008fc5;
+  color: white;
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+  font-weight: 1000;
+  text-transform: uppercase;
+}
+
+.gremio-card-body {
+  flex: 1;
+  padding: 18px;
+  text-align: center;
+}
+
+.gremio-card-body h2 {
+  margin: 0;
+  color: #111827;
+  font-size: 17px;
+  line-height: 1.22;
+  font-weight: 1000;
+  letter-spacing: -0.03em;
+}
+
+.gremio-tags {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 7px;
+}
+
+.gremio-tags span {
+  padding: 6px 9px;
+  border-radius: 999px;
+  background: #eef7fd;
+  color: #008fc5;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.gremio-presidente {
+  margin: 14px 0 0;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.35;
+  font-weight: 700;
+}
+
+.gremio-card-footer {
+  padding: 13px 16px;
+  border-top: 1px solid #e5e7eb;
+  color: #008fc5;
+  font-size: 12px;
+  font-weight: 1000;
+  text-align: center;
+}
+
+/* PAGINACIÓN */
+.gremios-pagination {
+  margin-top: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.gremios-pagination button {
+  min-height: 42px;
+  padding: 0 18px;
+  border: 0;
+  background: #008fc5;
+  color: white;
+  font-weight: 1000;
+  cursor: pointer;
+}
+
+.gremios-pagination button:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+}
+
+.gremios-pagination span {
+  color: #334155;
+  font-weight: 800;
+}
+
+/* ESTADOS */
+.gremios-loading,
+.gremios-empty {
+  margin-top: 42px;
+  padding: 36px;
+  background: white;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+.gremios-loading {
+  color: #008fc5;
+  font-weight: 1000;
+}
+
+.gremios-empty h2 {
+  margin: 0 0 8px;
+  color: #111827;
+}
+
+.gremios-empty p {
+  margin: 0;
+  color: #64748b;
+}
+
+/* TABLET */
+@media (max-width: 900px) {
+  .gremios-public-hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .gremios-hero-number {
+    width: 112px;
+    height: 112px;
+  }
+
+  .gremios-hero-number strong {
+    font-size: 32px;
+  }
+
+  .gremios-hero-number small {
+    margin-top: -26px;
+  }
+}
+
+/* CELULAR */
+@media (max-width: 560px) {
+  .gremios-public-page {
+    width: min(100% - 22px, 1120px);
+    padding-top: 28px;
+  }
+
+  .gremios-public-hero {
+    min-height: 290px;
+    padding: 26px;
+  }
+
+  .gremios-public-hero h1 {
+    font-size: 38px;
+  }
+
+  .gremios-public-hero p {
+    font-size: 15px;
+  }
+
+  .gremios-search-panel {
+    margin-top: -22px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .gremios-search-panel button {
+    width: 100%;
+  }
+
+  .gremios-active-search {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .gremios-active-search button {
+    width: 100%;
+  }
+
+  .gremios-grid {
+    grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+    gap: 12px;
+  }
+
+  .gremio-card {
+    min-height: 225px;
+  }
+
+  .gremio-logo-box {
+    height: 94px;
+  }
+
+  .gremio-card-body {
+    padding: 14px;
+  }
+
+  .gremio-card-body h2 {
+    font-size: 15px;
+  }
+
+  .gremios-pagination {
+    flex-direction: column;
+  }
+
+  .gremios-pagination button {
+    width: 100%;
+  }
+}

@@ -118,3 +118,26 @@
     overflow-x: hidden;
   }
 }
+
+
+.side-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.side-badge{
+    background:#ef4444;
+    color:white;
+    min-width:24px;
+    height:24px;
+
+    border-radius:999px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:12px;
+    font-weight:800;
+}

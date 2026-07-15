@@ -384,3 +384,12 @@
     height: 64px;
   }
 }
+.gd-btn.approve {
+  background: #16a34a;
+  color: white;
+}
+
+.gd-btn.danger {
+  background: #dc2626;
+  color: white;
+}

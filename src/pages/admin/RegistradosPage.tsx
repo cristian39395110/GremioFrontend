@@ -2,7 +2,12 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./RegistradosPage.css";
 
-import { TIPOS_EMPRESA, RUBROS_REGISTRO } from "../../constants/gremios";
+import {
+  REGIONES,
+  TIPOS_EMPRESA,
+  RUBROS_REGISTRO,
+   CARGOS,
+} from "../../constants/gremios";
 import { FaEye, FaEdit, FaTrash, FaSyncAlt, FaPlus, FaBroom } from "react-icons/fa";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
@@ -25,7 +30,7 @@ type Registrado = {
   createdAt?: string;
 };
 
-type RegionAPI = { codigo: string; nombre: string; tipo?: string };
+
 
 type ListaResponse = {
   rows: Registrado[];
@@ -42,8 +47,6 @@ export default function RegistradosPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const [regionesApi, setRegionesApi] = useState<RegionAPI[]>([]);
-  const [loadingRegiones, setLoadingRegiones] = useState(false);
 
   // filtros (igual que antes)
   const [qTexto, setQTexto] = useState("");
@@ -68,26 +71,7 @@ export default function RegistradosPage() {
     return params;
   };
 
-  const loadRegiones = async () => {
-    setLoadingRegiones(true);
-    try {
-      const resp = await fetch(`${API_URL}/api/admin/registros/regiones`);
-      const data = await resp.json().catch(() => null);
-      if (!resp.ok) throw new Error(data?.message || "No pude cargar regiones");
 
-      const regionesOk = Array.isArray(data)
-        ? data.filter((x) => x?.tipo === "region" && x?.nombre)
-        : [];
-
-      regionesOk.sort((a, b) => a.nombre.localeCompare(b.nombre, "es"));
-      setRegionesApi(regionesOk);
-    } catch (e) {
-      console.error(e);
-      setRegionesApi([]);
-    } finally {
-      setLoadingRegiones(false);
-    }
-  };
 
   const load = async () => {
     setLoading(true);
@@ -145,10 +129,7 @@ export default function RegistradosPage() {
     setPage(1);
   };
 
-  // cargar regiones una vez
-  useEffect(() => {
-    loadRegiones();
-  }, []);
+
 
   // cuando cambian filtros, volvés a página 1
   useEffect(() => {
@@ -192,19 +173,18 @@ export default function RegistradosPage() {
 
           <div className="filter-item">
             <label>Región</label>
-            <select
-              value={qRegion}
-              onChange={(e) => setQRegion(e.target.value)}
-              disabled={loadingRegiones}
-            >
-              <option value="">{loadingRegiones ? "Cargando..." : "Todas"}</option>
+<select
+  value={qRegion}
+  onChange={(e) => setQRegion(e.target.value)}
+>
+  <option value="">Todas</option>
 
-              {regionesApi.map((r) => (
-                <option key={r.codigo} value={r.nombre}>
-                  {r.nombre}
-                </option>
-              ))}
-            </select>
+  {REGIONES.map((r) => (
+    <option key={r} value={r}>
+      {r}
+    </option>
+  ))}
+</select>
           </div>
 
           <div className="filter-item">

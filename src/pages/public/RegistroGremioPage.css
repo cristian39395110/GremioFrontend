@@ -1,0 +1,360 @@
+.registro-gremio-page {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 54px 0 20px;
+}
+
+.registro-hero {
+  min-height: 300px;
+  padding: 42px;
+  background:
+    linear-gradient(120deg, rgba(7, 23, 47, 0.94), rgba(0, 143, 197, 0.72)),
+    url("https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1400&q=80");
+  background-size: cover;
+  background-position: center;
+  color: white;
+  display: flex;
+  align-items: flex-end;
+}
+
+.registro-hero span {
+  display: block;
+  margin-bottom: 12px;
+  color: #d8eefb;
+  font-size: 13px;
+  font-weight: 1000;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.registro-hero h1 {
+  margin: 0 0 14px;
+  max-width: 740px;
+  font-size: clamp(38px, 6vw, 68px);
+  line-height: 0.95;
+  font-weight: 1000;
+  letter-spacing: -0.06em;
+}
+
+.registro-hero p {
+  margin: 0;
+  max-width: 720px;
+  color: #e2e8f0;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.registro-layout {
+  margin-top: 36px;
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.registro-info-card {
+  background: linear-gradient(135deg, #07172f, #0b2c52);
+  color: white;
+  padding: 28px;
+  border-top: 7px solid #008fc5;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+}
+
+.registro-info-card span,
+.registro-form-head span {
+  color: #008fc5;
+  font-size: 12px;
+  font-weight: 1000;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.registro-info-card h2,
+.registro-form-head h2 {
+  margin: 10px 0 12px;
+  font-size: 30px;
+  line-height: 1.08;
+  font-weight: 1000;
+  letter-spacing: -0.04em;
+}
+
+.registro-info-card p {
+  color: #e2e8f0;
+  line-height: 1.55;
+}
+
+.registro-download-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 48px;
+  margin-top: 22px;
+  background: #008fc5;
+  color: white;
+  text-decoration: none;
+  font-weight: 1000;
+}
+
+.registro-warning {
+  margin-top: 20px;
+  padding: 16px;
+  background: rgba(0, 143, 197, 0.18);
+  border-left: 5px solid #39bdf2;
+  color: #f8fafc;
+  line-height: 1.45;
+  font-size: 14px;
+  font-weight: 800;
+}
+.registro-form {
+  background: white;
+  padding: 30px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  border-top: 7px solid #008fc5;
+}
+
+.registro-form-head {
+  margin-bottom: 22px;
+}
+
+.registro-form-head h2 {
+  color: #111827;
+}
+
+.registro-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.registro-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 1000;
+}
+
+.registro-form input,
+.registro-form textarea,
+.registro-form select {
+  width: 100%;
+  border: 1px solid #dbe3ec;
+  background: #f8fafc;
+  color: #111827;
+  min-height: 48px;
+  padding: 0 14px;
+  outline: none;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.registro-form textarea {
+  padding: 14px;
+  resize: vertical;
+}
+
+.registro-form input:focus,
+.registro-form textarea:focus {
+  border-color: #008fc5;
+  background: white;
+}
+
+.registro-full {
+  margin-top: 18px;
+}
+
+.registro-files {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.registro-form button {
+  width: 100%;
+  min-height: 54px;
+  margin-top: 26px;
+  border: 0;
+  background: #008fc5;
+  color: white;
+  font-weight: 1000;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.registro-form button:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+.registro-alert {
+  margin-bottom: 18px;
+  padding: 14px 16px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.registro-alert.success {
+  background: #e8f8ef;
+  color: #166534;
+  border-left: 6px solid #22c55e;
+}
+
+.registro-alert.error {
+  background: #fef2f2;
+  color: #991b1b;
+  border-left: 6px solid #ef4444;
+}
+
+@media (max-width: 900px) {
+  .registro-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .registro-gremio-page {
+    width: min(100% - 22px, 1120px);
+    padding-top: 28px;
+  }
+
+  .registro-hero {
+    min-height: 280px;
+    padding: 26px;
+  }
+
+  .registro-hero h1 {
+    font-size: 38px;
+  }
+
+  .registro-hero p {
+    font-size: 15px;
+  }
+
+  .registro-form,
+  .registro-info-card {
+    padding: 22px;
+  }
+
+  .registro-grid,
+  .registro-files {
+    grid-template-columns: 1fr;
+  }
+
+  .registro-info-card h2,
+  .registro-form-head h2 {
+    font-size: 25px;
+  }
+}
+
+.registro-form-head p {
+  margin: 0;
+  color: #64748b;
+  line-height: 1.5;
+  font-weight: 700;
+}
+
+.registro-file-required {
+  margin-top: 20px;
+  padding: 18px;
+  background: #f8fafc;
+  border-left: 6px solid #008fc5;
+}
+
+.registro-file-required small {
+  display: block;
+  margin-top: 8px;
+  color: #64748b;
+  font-weight: 700;
+}
+
+.registro-gremio-page.iframe {
+  width: 100%;
+  max-width: 980px;
+  padding: 20px;
+  margin: 0 auto;
+}
+.registro-directorio {
+  margin-top: 28px;
+}
+
+.registro-subhead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 16px;
+}
+
+.registro-subhead span {
+  color: #008fc5;
+  font-size: 12px;
+  font-weight: 1000;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.registro-subhead h3 {
+  margin: 6px 0 0;
+  color: #111827;
+  font-size: 26px;
+  line-height: 1.1;
+  font-weight: 1000;
+  letter-spacing: -0.04em;
+}
+
+.registro-subhead button,
+.directorio-card-head button {
+  border: 0;
+  background: #008fc5;
+  color: white;
+  padding: 11px 16px;
+  font-weight: 1000;
+  cursor: pointer;
+}
+
+.directorio-card {
+  margin-top: 16px;
+  padding: 18px;
+  background: #f8fafc;
+  border-left: 6px solid #008fc5;
+}
+
+.directorio-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.directorio-card-head strong {
+  color: #111827;
+  font-size: 15px;
+  font-weight: 1000;
+}
+
+.directorio-card-head button {
+  background: #991b1b;
+  padding: 9px 12px;
+}
+
+@media (max-width: 560px) {
+  .registro-subhead {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .registro-subhead button,
+  .directorio-card-head button {
+    width: 100%;
+  }
+
+  .directorio-card-head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+}
+

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./NuevoGremioPage.css";
 
@@ -8,12 +8,14 @@ import {
   NUM_TRABAJADORES,
   RUBROS_REGISTRO,
   ASESORIAS,
+  REGIONES,
 } from "../../constants/gremios";
+
+import { COMUNAS_POR_REGION } from "../../constants/comunas";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
-type RegionAPI = { codigo: string; nombre: string; tipo?: string };
-type ComunaAPI = { codigo: string; nombre: string; tipo?: string };
+
 
 export default function NuevoRegistradoPage() {
   const navigate = useNavigate();
@@ -22,10 +24,7 @@ export default function NuevoRegistradoPage() {
   const [error, setError] = useState<string | null>(null);
 
   // geo
-  const [loadingGeo, setLoadingGeo] = useState(true);
-  const [errorGeo, setErrorGeo] = useState<string | null>(null);
-  const [regiones, setRegiones] = useState<RegionAPI[]>([]);
-  const [comunas, setComunas] = useState<ComunaAPI[]>([]);
+
 
   // personales
   const [nombres, setNombres] = useState("");
@@ -37,66 +36,28 @@ export default function NuevoRegistradoPage() {
   const [email, setEmail] = useState("");
 
   // empresa
-  const [regionCodigo, setRegionCodigo] = useState(""); // acá guardamos el CODIGO
-  const [comuna, setComuna] = useState("");
+const [region, setRegion] = useState("");
+const [comuna, setComuna] = useState("");
   const [tipoEmpresa, setTipoEmpresa] = useState("");
   const [numeroTrabajadores, setNumeroTrabajadores] = useState("");
   const [rubro, setRubro] = useState("");
   const [asesoriaSobre, setAsesoriaSobre] = useState("");
 
   // 1) cargar regiones/comunas desde tu backend
-  useEffect(() => {
-    const loadGeo = async () => {
-      setLoadingGeo(true);
-      setErrorGeo(null);
 
-      try {
-        const [r1, r2] = await Promise.all([
-          fetch(`${API_URL}/api/admin/registros/regiones`),
-          fetch(`${API_URL}/api/admin/registros/comunas`),
-        ]);
-
-        const d1 = await r1.json().catch(() => null);
-        const d2 = await r2.json().catch(() => null);
-
-        if (!r1.ok) throw new Error(d1?.message || "No pude cargar regiones");
-        if (!r2.ok) throw new Error(d2?.message || "No pude cargar comunas");
-
-        // Nos quedamos SOLO con tipo correcto por las dudas
-        const regionesOk = Array.isArray(d1) ? d1.filter((x) => x?.tipo === "region") : [];
-        const comunasOk = Array.isArray(d2) ? d2.filter((x) => x?.tipo === "comuna") : [];
-
-        setRegiones(regionesOk);
-        setComunas(comunasOk);
-      } catch (e: any) {
-        setErrorGeo(e?.message || "Error cargando regiones/comunas");
-      } finally {
-        setLoadingGeo(false);
-      }
-    };
-
-    loadGeo();
-  }, []);
 
   // 2) nombre de la región (para guardar en DB)
-  const regionNombre = useMemo(() => {
-    if (!regionCodigo) return "";
-    return regiones.find((r) => r.codigo === regionCodigo)?.nombre || "";
-  }, [regionCodigo, regiones]);
+
 
   // 3) comunas filtradas por región usando prefijo del código
   // DPA: comuna.codigo = "05602" => región "05"
-  const comunasDisponibles = useMemo(() => {
-    if (!regionCodigo) return [];
+const comunasDisponibles = useMemo(() => {
+  if (!region) return [];
 
-    const region2 = String(regionCodigo).padStart(2, "0");
-
-    return comunas
-      .filter((c) => typeof c?.codigo === "string" && c.codigo.slice(0, 2) === region2)
-      .map((c) => c.nombre)
-      .filter(Boolean)
-      .sort((a, b) => a.localeCompare(b, "es"));
-  }, [regionCodigo, comunas]);
+  return [...(COMUNAS_POR_REGION[region] || [])].sort((a, b) =>
+    a.localeCompare(b, "es")
+  );
+}, [region]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -120,7 +81,7 @@ export default function NuevoRegistradoPage() {
         email: email.trim() || null,
 
         // guardamos texto “humano” en tu DB
-        region: regionNombre || null,
+       region: region || null,
         comuna: comuna || null,
 
         tipoEmpresa: tipoEmpresa || null,
@@ -158,7 +119,7 @@ export default function NuevoRegistradoPage() {
         </button>
       </div>
 
-      {errorGeo && <div className="error-box">{errorGeo}</div>}
+      
       {error && <div className="error-box">{error}</div>}
 
       <form onSubmit={handleSubmit}>
@@ -215,44 +176,40 @@ export default function NuevoRegistradoPage() {
         <div className="two-columns">
           <div>
             <label>Región</label>
-            <select
-              value={regionCodigo}
-              onChange={(e) => {
-                setRegionCodigo(e.target.value);
-                setComuna("");
-              }}
-              disabled={loadingGeo}
-            >
-              <option value="">{loadingGeo ? "Cargando..." : "—Por favor, elige una opción—"}</option>
-              {regiones.map((r) => (
-                <option key={r.codigo} value={r.codigo}>
-                  {r.nombre}
-                </option>
-              ))}
-            </select>
+ <select
+  value={region}
+  onChange={(e) => {
+    setRegion(e.target.value);
+    setComuna("");
+  }}
+>
+  <option value="">—Por favor, elige una opción—</option>
+
+  {REGIONES.map((r) => (
+    <option key={r} value={r}>
+      {r}
+    </option>
+  ))}
+</select>
           </div>
 
           <div>
             <label>Comuna</label>
-            <select
-              value={comuna}
-              onChange={(e) => setComuna(e.target.value)}
-              disabled={loadingGeo || !regionCodigo}
-            >
-              <option value="">
-                {!regionCodigo
-                  ? "— Elegí región primero —"
-                  : comunasDisponibles.length === 0
-                  ? "— No hay comunas (revisá filtro) —"
-                  : "—Por favor, elige una opción—"}
-              </option>
+<select
+  value={comuna}
+  onChange={(e) => setComuna(e.target.value)}
+  disabled={!region}
+>
+  <option value="">
+    {!region ? "— Elegí región primero —" : "—Por favor, elige una opción—"}
+  </option>
 
-              {comunasDisponibles.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
+  {comunasDisponibles.map((c) => (
+    <option key={c} value={c}>
+      {c}
+    </option>
+  ))}
+</select>
           </div>
         </div>
 

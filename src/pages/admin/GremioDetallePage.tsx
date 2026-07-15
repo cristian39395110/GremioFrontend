@@ -19,6 +19,18 @@ type Gremio = {
   rut: string;
   rubro: string;
   region: string;
+
+  fechaCreacion?: string | null;
+  numeroSocios?: string | number | null;
+  numeroEmpresas?: string | number | null;
+  provincia?: string | null;
+  ciudad?: string | null;
+  direccion?: string | null;
+  sitioWeb?: string | null;
+  email?: string | null;
+  redesSociales?: string | null;
+
+  estado: "pendiente" | "aprobado" | "rechazado";
   descripcion?: string | null;
   logoUrl?: string | null;
   cartaPdfUrl?: string | null;
@@ -73,6 +85,29 @@ export default function GremioDetallePage() {
     }
   };
 
+  const cambiarEstado = async (estado: "aprobado" | "rechazado") => {
+  try {
+    const resp = await fetch(`${API_URL}/api/admin/gremios/${id}/estado`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({ estado }),
+    });
+
+    const data = await resp.json();
+
+    if (!resp.ok) {
+      throw new Error(data?.message || "Error al cambiar estado");
+    }
+
+    await load();
+  } catch (e: any) {
+    setError(e.message || "Error al cambiar estado");
+  }
+};
+
   useEffect(() => {
     load();
   }, [id]);
@@ -89,14 +124,36 @@ export default function GremioDetallePage() {
          
         </div>
 
-        <div className="gd-actions">
-          <button className="gd-btn" onClick={() => navigate("/admin/gremios")}>
-            ← Volver
-          </button>
-          <button className="gd-btn primary" onClick={() => navigate(`/admin/gremios/${gremio.id}`)}>
-            ✏️ Editar
-          </button>
-        </div>
+       <div className="gd-actions">
+  <button className="gd-btn" onClick={() => navigate("/admin/gremios")}>
+    ← Volver
+  </button>
+
+  <button
+    className="gd-btn primary"
+    onClick={() => navigate(`/admin/gremios/${gremio.id}`)}
+  >
+    ✏️ Editar
+  </button>
+
+  {gremio.estado === "pendiente" && (
+    <>
+      <button
+        className="gd-btn approve"
+        onClick={() => cambiarEstado("aprobado")}
+      >
+        ✅ Aprobar
+      </button>
+
+      <button
+        className="gd-btn danger"
+        onClick={() => cambiarEstado("rechazado")}
+      >
+        ❌ Rechazar
+      </button>
+    </>
+  )}
+</div>
       </div>
 
       <div className="gd-grid">
@@ -113,6 +170,7 @@ export default function GremioDetallePage() {
           </div>
 
           <div className="gd-kv">
+
             <div className="kv">
               <span>Nombre</span>
               <strong>{gremio.nombre}</strong>
@@ -129,6 +187,55 @@ export default function GremioDetallePage() {
               <span>Región</span>
               <strong>{gremio.region}</strong>
             </div>
+            <div className="kv">
+  <span>Comuna / Ciudad</span>
+  <strong>{gremio.ciudad || "—"}</strong>
+</div>
+
+<div className="kv">
+  <span>Provincia</span>
+  <strong>{gremio.provincia || "—"}</strong>
+</div>
+
+<div className="kv">
+  <span>Dirección</span>
+  <strong>{gremio.direccion || "—"}</strong>
+</div>
+
+<div className="kv">
+  <span>Fecha creación</span>
+  <strong>{gremio.fechaCreacion || "—"}</strong>
+</div>
+
+<div className="kv">
+  <span>Número de socios</span>
+  <strong>{gremio.numeroSocios || "—"}</strong>
+</div>
+
+<div className="kv">
+  <span>Número de empresas</span>
+  <strong>{gremio.numeroEmpresas || "—"}</strong>
+</div>
+
+<div className="kv">
+  <span>Email</span>
+  <strong>{gremio.email || "—"}</strong>
+</div>
+
+<div className="kv">
+  <span>Sitio web</span>
+  <strong>{gremio.sitioWeb || "—"}</strong>
+</div>
+
+<div className="kv">
+  <span>Redes sociales</span>
+  <strong>{gremio.redesSociales || "—"}</strong>
+</div>
+
+            <div className="kv">
+  <span>Estado</span>
+  <strong>{gremio.estado}</strong>
+</div>
           </div>
 
           {gremio.descripcion ? (
@@ -142,18 +249,27 @@ export default function GremioDetallePage() {
 
           {/* PDF */}
           <div className="gd-pdf">
-            <div className="gd-desc-title">Carta de adhesión (PDF)</div>
+            <div className="gd-desc-title">Ficha firmada del gremio</div>
 
             {gremio.cartaPdfUrl ? (
               <div className="gd-pdf-actions">
            
-                <button
-                  type="button"
-                  className="gd-btn small"
-                  onClick={() => descargarArchivo(gremio.cartaPdfUrl!, `carta_gremio_${gremio.id}.pdf`)}
-                >
-                  Descargar
-                </button>
+<button
+  type="button"
+  className="gd-btn small"
+  onClick={() => window.open(gremio.cartaPdfUrl!, "_blank")}
+>
+  Ver PDF
+</button>
+
+<a
+  className="gd-btn small"
+  href={gremio.cartaPdfUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  Descargar
+</a>
               </div>
             ) : (
               <div className="gd-muted">No hay PDF cargado.</div>

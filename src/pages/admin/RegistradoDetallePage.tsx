@@ -13,7 +13,10 @@ import {
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 type RegionAPI = { codigo: string; nombre: string; tipo?: string };
-type ComunaAPI = { codigo: string; nombre: string; tipo?: string };
+type ComunaAPI = {
+  nombre: string;
+  region: string;
+};
 
 
 type Registrado = {
@@ -94,11 +97,8 @@ useEffect(() => {
 
         if (!r1.ok) throw new Error(d1?.message || "No pude cargar regiones");
         if (!r2.ok) throw new Error(d2?.message || "No pude cargar comunas");
-const regionesOk = Array.isArray(d1) ? d1.filter((x) => x?.tipo === "region") : [];
-const comunasOk  = Array.isArray(d2) ? d2.filter((x) => x?.tipo === "comuna") : [];
-
-setRegiones(regionesOk);
-setComunas(comunasOk);
+setRegiones(Array.isArray(d1) ? d1 : []);
+setComunas(Array.isArray(d2) ? d2 : []);
 
       } catch (e: any) {
         setErrorGeo(e?.message || "Error cargando regiones/comunas");
@@ -175,17 +175,7 @@ useEffect(() => {
 
 
   // 4) comunas filtradas por codigo_padre
-const comunasDisponibles = useMemo(() => {
-  if (!regionCodigo) return [];
 
-  const region2 = String(regionCodigo).padStart(2, "0");
-
-  return comunas
-    .filter((c) => typeof c?.codigo === "string" && c.codigo.slice(0, 2) === region2)
-    .map((c) => c.nombre)
-    .filter(Boolean)
-    .sort((a, b) => a.localeCompare(b, "es"));
-}, [regionCodigo, comunas]);
 
 
   // 5) nombre de región para guardar en DB
@@ -193,6 +183,15 @@ const comunasDisponibles = useMemo(() => {
     if (!regionCodigo) return "";
     return regiones.find((r) => r.codigo === regionCodigo)?.nombre || "";
   }, [regionCodigo, regiones]);
+
+  const comunasDisponibles = useMemo(() => {
+  if (!regionNombre) return [];
+
+  return comunas
+    .filter((c) => c.region === regionNombre)
+    .map((c) => c.nombre)
+    .sort((a, b) => a.localeCompare(b, "es"));
+}, [regionNombre, comunas]);
 
   const resetForm = () => {
     if (!registradoOriginal) return;
