@@ -48,6 +48,10 @@ export const CARGOS = [
   "Presidente",
   "Vicepresidente",
   "Miembro",
+  "Secretario(a)",
+  "Tesorero(a)",
+  "Director(a)"
+
 ];
 
 
