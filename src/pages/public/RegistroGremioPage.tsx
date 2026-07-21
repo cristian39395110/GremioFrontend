@@ -198,6 +198,27 @@ function cambiarCampo(
   const comunasDisponibles =
   COMUNAS_POR_REGION[form.region] || [];
 
+  if (ok) {
+  return (
+    <section
+      className={
+        modoIframe
+          ? "registro-gremio-page iframe"
+          : "registro-gremio-page"
+      }
+    >
+      <div className="registro-envio-exitoso">
+        <h2>Formulario enviado correctamente</h2>
+
+        <p>
+          Gracias. Su solicitud fue recibida y quedó pendiente de revisión
+          y aprobación.
+        </p>
+      </div>
+    </section>
+  );
+}
+
   return (
     <section className={modoIframe ? "registro-gremio-page iframe" : "registro-gremio-page"}>
       {!modoIframe && (
@@ -243,11 +264,7 @@ function cambiarCampo(
             </p>
           </div>
 
-          {ok && (
-            <div className="registro-alert success">
-              Solicitud enviada correctamente. Quedará pendiente de aprobación.
-            </div>
-          )}
+         
 
           {error && <div className="registro-alert error">{error}</div>}
 
@@ -395,16 +412,12 @@ function cambiarCampo(
           </label>
 
           <div className="registro-directorio">
-            <div className="registro-subhead">
-              <div>
-                <span>Miembros de Directorio</span>
-                <h3>Integrantes del gremio</h3>
-              </div>
-
-              <button type="button" onClick={agregarMiembro}>
-                + Agregar miembro
-              </button>
-            </div>
+           <div className="registro-subhead">
+  <div>
+    <span>Miembros de Directorio</span>
+    <h3>Integrantes del gremio</h3>
+  </div>
+</div>
 
             {directorio.map((miembro, index) => (
               <div className="directorio-card" key={index}>
@@ -494,6 +507,13 @@ function cambiarCampo(
 
               </div>
             ))}
+            <button
+  type="button"
+  onClick={agregarMiembro}
+  className="agregar-miembro-btn"
+>
+  + Agregar miembro
+</button>
           </div>
 
           <div className="registro-file-required">
