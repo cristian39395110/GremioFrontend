@@ -352,42 +352,66 @@
 
 .home-carousel-content {
   position: absolute;
-  left: max(40px, calc((100% - 1120px) / 2));
-  right: 80px;
-  bottom: 50px;
+  inset: 0;
   z-index: 3;
-  max-width: 720px;
+
+  width: min(900px, calc(100% - 100px));
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
 }
 
 .home-carousel-content span {
   display: block;
-  margin-bottom: 10px;
+  min-height: 22px;
+  margin-bottom: 14px;
+
   color: #e2e8f0;
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 .home-carousel-content h1 {
-  margin: 0 0 20px;
+  width: 100%;
+  max-width: 850px;
+  min-height: 130px;
+  margin: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   color: white;
   font-size: clamp(34px, 5vw, 58px);
-  line-height: 1.02;
+  line-height: 1.05;
   font-weight: 1000;
   letter-spacing: -0.05em;
+  text-align: center;
 }
 
 .home-carousel-content small {
   display: inline-flex;
   align-items: center;
-  min-height: 34px;
-  padding: 0 18px;
+  justify-content: center;
+
+  min-width: 150px;
+  min-height: 40px;
+  margin-top: 20px;
+  padding: 0 20px;
+
   border-radius: 999px;
   background: #008fc5;
   color: white;
   font-size: 12px;
   font-weight: 1000;
 }
-
 .home-carousel-arrow {
   position: absolute;
   top: 50%;
@@ -443,15 +467,16 @@
     min-height: 340px;
   }
 
-  .home-carousel-content {
-    left: 24px;
-    right: 24px;
-    bottom: 48px;
-  }
+.home-carousel-content {
+  inset: 0;
+  width: calc(100% - 70px);
+  margin: auto;
+}
 
-  .home-carousel-content h1 {
-    font-size: 31px;
-  }
+.home-carousel-content h1 {
+  min-height: 115px;
+  font-size: 30px;
+}
 
   .home-carousel-arrow {
     width: 40px;
