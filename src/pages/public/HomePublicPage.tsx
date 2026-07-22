@@ -23,7 +23,7 @@ type Grupo = {
 
 export default function HomePublicPage() {
   const [gremios, setGremios] = useState<Gremio[]>([]);
-  const [rubros, setRubros] = useState<Grupo[]>([]);
+  const [, setRubros] = useState<Grupo[]>([]);
  const [regiones, setRegiones] = useState<Record<string, Gremio[]>>({});
   const [slideActual, setSlideActual] = useState(0);
 const [cargando, setCargando] = useState(true);
