@@ -358,3 +358,100 @@
 
 }
 
+
+/* =========================
+   PREVIEW FOTO INTEGRANTE
+========================= */
+
+.directorio-preview {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.directorio-preview img {
+  width: 90px !important;
+  height: 90px !important;
+  min-width: 90px;
+  max-width: 90px !important;
+  min-height: 90px;
+  max-height: 90px !important;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  border: 3px solid #008fc5;
+}
+
+.directorio-preview button {
+  width: auto !important;
+  min-height: 40px;
+  margin-top: 0 !important;
+  padding: 8px 14px;
+  background: #991b1b;
+  border: 0;
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+
+/* =========================
+   ENVIO EXITOSO
+========================= */
+
+.registro-envio-exitoso {
+  max-width: 700px;
+  margin: 70px auto;
+  padding: 45px 35px;
+  background: #ffffff;
+  border-top: 7px solid #008fc5;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.10);
+  text-align: center;
+}
+
+.registro-envio-exitoso::before {
+  content: "✓";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 22px;
+  border-radius: 50%;
+  background: #e8f8ef;
+  color: #16a34a;
+  font-size: 38px;
+  font-weight: 1000;
+}
+
+.registro-envio-exitoso h2 {
+  margin: 0 0 14px;
+  color: #07172f;
+  font-size: 30px;
+  font-weight: 1000;
+}
+
+.registro-envio-exitoso p {
+  margin: 0;
+  color: #64748b;
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 700;
+}
+
+@media (max-width: 560px) {
+  .registro-envio-exitoso {
+    margin: 40px auto;
+    padding: 35px 22px;
+  }
+
+  .registro-envio-exitoso h2 {
+    font-size: 25px;
+  }
+
+  .directorio-preview {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
