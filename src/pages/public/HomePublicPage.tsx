@@ -24,7 +24,7 @@ type Grupo = {
 export default function HomePublicPage() {
   const [gremios, setGremios] = useState<Gremio[]>([]);
   const [rubros, setRubros] = useState<Grupo[]>([]);
-  const [, setRegiones] = useState<Grupo[]>([]);
+ const [regiones, setRegiones] = useState<Record<string, Gremio[]>>({});
   const [slideActual, setSlideActual] = useState(0);
 const [cargando, setCargando] = useState(true);
 
@@ -46,9 +46,18 @@ const cargarHome = async () => {
       Array.isArray(rubrosData) ? rubrosData : rubrosData.rubros || []
     );
 
-    setRegiones(
-      Array.isArray(regionesData) ? regionesData : regionesData.regiones || []
-    );
+if (Array.isArray(regionesData)) {
+  const agrupado: Record<string, Gremio[]> = {};
+
+  regionesData.forEach((item: any) => {
+    const nombre = item.nombre || item.region || "Sin región";
+    agrupado[nombre] = item.gremios || [];
+  });
+
+  setRegiones(agrupado);
+} else {
+  setRegiones(regionesData || {});
+}
   } catch (error) {
     console.error("Error cargando home público:", error);
   } finally {
@@ -56,11 +65,20 @@ const cargarHome = async () => {
   }
 };
 
-  const totalGremios = useMemo(() => {
-    if (!Array.isArray(rubros)) return 0;
+const totalGremios = useMemo(() => {
+  if (!regiones || typeof regiones !== "object") return 0;
 
-    return rubros.reduce((acc, item) => acc + Number(item.total || 0), 0);
-  }, [rubros]);
+  return Object.values(regiones).reduce(
+    (acc: number, lista: any) => {
+      if (Array.isArray(lista)) {
+        return acc + lista.length;
+      }
+
+      return acc;
+    },
+    0
+  );
+}, [regiones]);
   const slides = [
   {
     imagen:
