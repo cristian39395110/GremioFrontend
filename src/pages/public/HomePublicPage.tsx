@@ -80,14 +80,13 @@ const totalGremios = useMemo(() => {
   );
 }, [regiones]);
   const slides = [
-  {
-    imagen:
-      "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1600&q=85",
-    titulo: "Somos la Multigremial más grande de Chile",
-    etiqueta: "Multigremial Chile",
-    boton: "VER GREMIOS +",
-    link: "/gremios",
-  },
+{
+  imagen: "/images/principal.png",
+  titulo: "Somos la Multigremial más grande de Chile",
+  etiqueta: "Multigremial Chile",
+  boton: "VER GREMIOS +",
+  link: "/gremios",
+},
   {
     imagen:
       "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=85",
