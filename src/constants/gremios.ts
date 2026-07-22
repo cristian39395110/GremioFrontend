@@ -37,11 +37,13 @@ export const RUBROS = [
   "Industria",
   "Lechería",
   "Minería",
+  "Pesca",
   "Reciclaje",
   "Seguridad",
   "Servicios",
   "Tecnología/Informática",
   "Transporte",
+  "Otro",
 ];
 
 export const CARGOS = [
