@@ -322,3 +322,140 @@
     height: 68px;
   }
 }
+
+/* =========================
+   CARRUSEL HOME
+========================= */
+
+.home-carousel {
+  position: relative;
+  min-height: 420px;
+  overflow: hidden;
+  background: #111827;
+}
+
+.home-carousel-slide {
+  position: relative;
+  display: block;
+  min-height: 420px;
+  color: white;
+  text-decoration: none;
+}
+
+.home-carousel-slide img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-carousel-content {
+  position: absolute;
+  left: max(40px, calc((100% - 1120px) / 2));
+  right: 80px;
+  bottom: 50px;
+  z-index: 3;
+  max-width: 720px;
+}
+
+.home-carousel-content span {
+  display: block;
+  margin-bottom: 10px;
+  color: #e2e8f0;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.home-carousel-content h1 {
+  margin: 0 0 20px;
+  color: white;
+  font-size: clamp(34px, 5vw, 58px);
+  line-height: 1.02;
+  font-weight: 1000;
+  letter-spacing: -0.05em;
+}
+
+.home-carousel-content small {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: #008fc5;
+  color: white;
+  font-size: 12px;
+  font-weight: 1000;
+}
+
+.home-carousel-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+  width: 48px;
+  height: 48px;
+  transform: translateY(-50%);
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  color: white;
+  font-size: 38px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.home-carousel-arrow-left {
+  left: 18px;
+}
+
+.home-carousel-arrow-right {
+  right: 18px;
+}
+
+.home-carousel-dots {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  z-index: 5;
+  display: flex;
+  gap: 8px;
+  transform: translateX(-50%);
+}
+
+.home-carousel-dots button {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+}
+
+.home-carousel-dots button.active {
+  background: white;
+  transform: scale(1.25);
+}
+
+@media (max-width: 560px) {
+  .home-carousel,
+  .home-carousel-slide {
+    min-height: 340px;
+  }
+
+  .home-carousel-content {
+    left: 24px;
+    right: 24px;
+    bottom: 48px;
+  }
+
+  .home-carousel-content h1 {
+    font-size: 31px;
+  }
+
+  .home-carousel-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 30px;
+  }
+}

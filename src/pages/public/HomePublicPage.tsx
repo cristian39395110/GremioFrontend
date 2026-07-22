@@ -25,86 +25,151 @@ export default function HomePublicPage() {
   const [gremios, setGremios] = useState<Gremio[]>([]);
   const [rubros, setRubros] = useState<Grupo[]>([]);
   const [, setRegiones] = useState<Grupo[]>([]);
+  const [slideActual, setSlideActual] = useState(0);
+const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
     cargarHome();
   }, []);
 
-  const cargarHome = async () => {
-    try {
-      const [gremiosData, rubrosData, regionesData] = await Promise.all([
-        obtenerGremiosPublicos({ page: 1, limit: 8 }),
-        obtenerGremiosPorRubro(),
-        obtenerGremiosPorRegion(),
-      ]);
+const cargarHome = async () => {
+  try {
+    const [gremiosData, rubrosData, regionesData] = await Promise.all([
+      obtenerGremiosPublicos({ page: 1, limit: 8 }),
+      obtenerGremiosPorRubro(),
+      obtenerGremiosPorRegion(),
+    ]);
 
-      setGremios(gremiosData.gremios || []);
+    setGremios(gremiosData.gremios || []);
 
-      setRubros(
-        Array.isArray(rubrosData) ? rubrosData : rubrosData.rubros || []
-      );
+    setRubros(
+      Array.isArray(rubrosData) ? rubrosData : rubrosData.rubros || []
+    );
 
-      setRegiones(
-        Array.isArray(regionesData) ? regionesData : regionesData.regiones || []
-      );
-    } catch (error) {
-      console.error("Error cargando home público:", error);
-    }
-  };
+    setRegiones(
+      Array.isArray(regionesData) ? regionesData : regionesData.regiones || []
+    );
+  } catch (error) {
+    console.error("Error cargando home público:", error);
+  } finally {
+    setCargando(false);
+  }
+};
 
   const totalGremios = useMemo(() => {
     if (!Array.isArray(rubros)) return 0;
 
     return rubros.reduce((acc, item) => acc + Number(item.total || 0), 0);
   }, [rubros]);
+  const slides = [
+  {
+    imagen:
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1600&q=85",
+    titulo: "Somos la Multigremial más grande de Chile",
+    etiqueta: "Multigremial Chile",
+    boton: "VER GREMIOS +",
+    link: "/gremios",
+  },
+  {
+    imagen:
+      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=85",
+    titulo: cargando
+      ? "Conectando a los gremios de Chile"
+      : `Somos ${totalGremios} gremios a lo largo de todo Chile`,
+    etiqueta: "Directorio gremial",
+    boton: "BUSCAR +",
+    link: "/gremios",
+  },
+  {
+    imagen:
+      "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1600&q=85",
+    titulo: "Registra tu gremio aquí",
+    etiqueta: "Registro público",
+    boton: "REGISTRAR +",
+    link: "/registro-gremio",
+  },
+];
+
+const siguienteSlide = () => {
+  setSlideActual((prev) =>
+    prev === slides.length - 1 ? 0 : prev + 1
+  );
+};
+
+const anteriorSlide = () => {
+  setSlideActual((prev) =>
+    prev === 0 ? slides.length - 1 : prev - 1
+  );
+};  
+useEffect(() => {
+  const intervalo = setInterval(() => {
+    setSlideActual((prev) =>
+      prev === slides.length - 1 ? 0 : prev + 1
+    );
+  }, 5000);
+
+  return () => clearInterval(intervalo);
+}, []);
 
   return (
     <div className="home-mg">
-      <section className="home-marquee-grid">
-        <Link to="/gremios" className="home-marquee-card home-marquee-main">
-          <img
-            src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=80"
-            alt="Multigremial Chile"
-          />
-          <div className="home-card-overlay" />
+  <section className="home-carousel">
+  <Link
+    to={slides[slideActual].link}
+    className="home-carousel-slide"
+  >
+    <img
+      src={slides[slideActual].imagen}
+      alt={slides[slideActual].titulo}
+    />
 
-          <div className="home-card-content">
-            <span>Multigremial Chile</span>
-            <h1>Somos la Multigremial más grande de Chile</h1>
-            <small>VER GREMIOS +</small>
-          </div>
-        </Link>
+    <div className="home-card-overlay" />
 
-        <Link to="/gremios" className="home-marquee-card">
-          <img
-            src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80"
-            alt="Gremios de Chile"
-          />
-          <div className="home-card-overlay" />
+    <div className="home-carousel-content">
+      <span>{slides[slideActual].etiqueta}</span>
 
-          <div className="home-card-content">
-            <span>Directorio gremial</span>
-            <h2>
-              Somos {totalGremios || "XXX"} gremios a lo largo de todo Chile
-            </h2>
-            <small>BUSCAR +</small>
-          </div>
-        </Link>
+      <h1>{slides[slideActual].titulo}</h1>
 
-        <Link to="/registro-gremio" className="home-marquee-card">
-          <img
-            src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80"
-            alt="Registrar gremio"
-          />
-          <div className="home-card-overlay home-card-overlay-blue" />
+      <small>{slides[slideActual].boton}</small>
+    </div>
+  </Link>
 
-          <div className="home-card-content">
-            <span>Registro público</span>
-            <h2>Registra tu gremio aquí</h2>
-            <small>REGISTRAR +</small>
-          </div>
-        </Link>
-      </section>
+  <button
+    type="button"
+    className="home-carousel-arrow home-carousel-arrow-left"
+    onClick={(e) => {
+      e.preventDefault();
+      anteriorSlide();
+    }}
+    aria-label="Imagen anterior"
+  >
+    ‹
+  </button>
+
+  <button
+    type="button"
+    className="home-carousel-arrow home-carousel-arrow-right"
+    onClick={(e) => {
+      e.preventDefault();
+      siguienteSlide();
+    }}
+    aria-label="Imagen siguiente"
+  >
+    ›
+  </button>
+
+  <div className="home-carousel-dots">
+    {slides.map((_, index) => (
+      <button
+        key={index}
+        type="button"
+        className={index === slideActual ? "active" : ""}
+        onClick={() => setSlideActual(index)}
+        aria-label={`Ir a imagen ${index + 1}`}
+      />
+    ))}
+  </div>
+</section>
 
       <section className="home-slogan">
         <p>LOS GREMIOS MUEVEN A CHILE</p>
