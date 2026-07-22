@@ -79,17 +79,19 @@ const totalGremios = useMemo(() => {
     0
   );
 }, [regiones]);
-  const slides = [
-{
-  imagen: "/images/principal.png",
-  titulo: "Somos la Multigremial más grande de Chile",
-  etiqueta: "Multigremial Chile",
-  boton: "VER GREMIOS +",
-  link: "/gremios",
-},
+const slides = [
+  {
+    imagen: "/images/principal.png",
+    posicion: "center center",
+    titulo: "Somos la Multigremial más grande de Chile",
+    etiqueta: "Multigremial Chile",
+    boton: "VER GREMIOS +",
+    link: "/gremios",
+  },
   {
     imagen:
       "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=85",
+    posicion: "center 35%",
     titulo: cargando
       ? "Conectando a los gremios de Chile"
       : `Somos ${totalGremios} gremios a lo largo de todo Chile`,
@@ -100,6 +102,7 @@ const totalGremios = useMemo(() => {
   {
     imagen:
       "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1600&q=85",
+    posicion: "center 35%",
     titulo: "Registra tu gremio aquí",
     etiqueta: "Registro público",
     boton: "REGISTRAR +",
@@ -135,10 +138,13 @@ useEffect(() => {
     to={slides[slideActual].link}
     className="home-carousel-slide"
   >
-    <img
-      src={slides[slideActual].imagen}
-      alt={slides[slideActual].titulo}
-    />
+   <img
+  src={slides[slideActual].imagen}
+  alt={slides[slideActual].titulo}
+  style={{
+    objectPosition: slides[slideActual].posicion,
+  }}
+/>
 
     <div className="home-card-overlay" />
 
