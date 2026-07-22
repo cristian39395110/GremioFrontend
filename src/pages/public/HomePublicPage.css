@@ -329,7 +329,7 @@
 
 .home-carousel {
   position: relative;
-  min-height: 420px;
+  min-height: 800px;
   overflow: hidden;
   background: #111827;
 }
@@ -337,7 +337,7 @@
 .home-carousel-slide {
   position: relative;
   display: block;
-  min-height: 420px;
+  min-height: 800px;
   color: white;
   text-decoration: none;
 }
