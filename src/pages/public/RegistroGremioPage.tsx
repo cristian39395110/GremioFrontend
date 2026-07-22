@@ -271,6 +271,7 @@ function cambiarCampo(
           <div className="registro-grid">
             <label>
               Nombre gremio *
+              
               <input name="nombre" value={form.nombre} onChange={cambiarCampo} required />
             </label>
 
