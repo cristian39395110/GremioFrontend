@@ -51,7 +51,7 @@ export default function PublicLayout() {
           <div className="public-footer-links">
             <Link to="/gremios">Gremios</Link>
             <Link to="/registro-gremio">Registrar gremio</Link>
-            <Link to="/admin/login">Administrador</Link>
+          
           </div>
         </div>
       </footer>
