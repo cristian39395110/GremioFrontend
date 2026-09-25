@@ -44,6 +44,8 @@ function App() {
   element={<RegistroGremioPage modoIframe />}
 />
 
+<Route path="registrados/nuevo" element={<NuevoRegistradoPage />} />
+
         {/* ADMIN LOGIN */}
         <Route path="/admin/login" element={<LoginPage />} />
 
@@ -70,7 +72,7 @@ function App() {
 <Route path="gremios/:id/ver" element={<GremioDetallePage />} />
 
           <Route path="registrados" element={<RegistradosPage />} />
-          <Route path="registrados/nuevo" element={<NuevoRegistradoPage />} />
+        
           <Route path="registrados/:id/ver" element={<RegistradoDetallePage />} />
           <Route path="registrados/:id/editar" element={<RegistradoDetallePage />} />
 
