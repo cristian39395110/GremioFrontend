@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import "./NuevoGremioPage.css";
 
 import {
@@ -18,10 +18,11 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 
 export default function NuevoRegistradoPage() {
-  const navigate = useNavigate();
+
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+const [error, setError] = useState<string | null>(null);
+const [exito, setExito] = useState(false);
 
   // geo
 
@@ -89,20 +90,21 @@ const comunasDisponibles = useMemo(() => {
         rubro: rubro || null,
         asesoriaSobre: asesoriaSobre || null,
       };
+const resp = await fetch(`${API_URL}/api/public/registrados`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(payload),
+});
 
-      const resp = await fetch(`${API_URL}/api/admin/registros`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(payload),
-      });
+const data = await resp.json().catch(() => null);
 
-      const data = await resp.json().catch(() => null);
-      if (!resp.ok) throw new Error(data?.message || "Error al crear registrado");
+if (!resp.ok) {
+  throw new Error(data?.message || "Error al realizar el registro");
+}
 
-      navigate("/admin/registrados");
+setExito(true);
     } catch (err: any) {
       setError(err?.message || "Error");
     } finally {
@@ -114,15 +116,30 @@ const comunasDisponibles = useMemo(() => {
     <div className="nuevo-gremio-page">
       <div className="page-header">
         <h2>Nuevo Registro</h2>
-        <button className="btn-secondary" onClick={() => navigate("/admin/registrados")}>
-          ← Volver
-        </button>
+
       </div>
 
       
-      {error && <div className="error-box">{error}</div>}
+    {exito ? (
+  <div
+    style={{
+      padding: "30px",
+      textAlign: "center",
+      border: "1px solid #d1e7dd",
+      borderRadius: "10px",
+      background: "#f0fff4",
+      marginTop: "20px",
+    }}
+  >
+    <h2>¡Registro realizado correctamente!</h2>
+    <p>Muchas gracias por completar el formulario.</p>
+    <p>Tus datos fueron enviados exitosamente.</p>
+  </div>
+) : (
+  <>
+    {error && <div className="error-box">{error}</div>}
 
-      <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
         <h3>Datos personales</h3>
 
         <div className="two-columns">
@@ -269,6 +286,8 @@ const comunasDisponibles = useMemo(() => {
           {loading ? "Guardando..." : "Terminar Registro"}
         </button>
       </form>
+  </>
+)}
     </div>
   );
 }

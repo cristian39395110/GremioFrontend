@@ -259,6 +259,68 @@ button[type="button"]:hover {
   border: 1px solid rgba(0,0,0,0.12);
 }
 
+/* =====================================
+   FORMULARIO - SIEMPRE MODO CLARO
+   INCLUSO EN CELULARES CON MODO OSCURO
+===================================== */
+
+.nuevo-gremio-page {
+  color-scheme: light;
+  background-color: #ffffff;
+  color: #0f2a44;
+  min-height: 100vh;
+}
+
+/* Encabezado */
+.nuevo-gremio-page .page-header {
+  background-color: #ffffff;
+}
+
+.nuevo-gremio-page .page-header h2 {
+  color: #0f2a44;
+}
+
+/* Formulario */
+.nuevo-gremio-page form {
+  background-color: #ffffff;
+  color: #0f2a44;
+}
+
+/* Etiquetas y títulos */
+.nuevo-gremio-page label,
+.nuevo-gremio-page form h3 {
+  color: #0f2a44;
+}
+
+/* Campos */
+.nuevo-gremio-page input,
+.nuevo-gremio-page select,
+.nuevo-gremio-page textarea {
+  color-scheme: light;
+  background-color: #f9fafb;
+  color: #222222;
+  -webkit-text-fill-color: #222222;
+}
+
+/* Opciones de los selectores */
+.nuevo-gremio-page option {
+  background-color: #ffffff;
+  color: #222222;
+}
+
+/* Campos seleccionados */
+.nuevo-gremio-page input:focus,
+.nuevo-gremio-page select:focus,
+.nuevo-gremio-page textarea:focus {
+  background-color: #ffffff;
+  color: #222222;
+}
+
+/* Botón principal */
+.nuevo-gremio-page button[type="submit"] {
+  color: #1a1a1a;
+}
+
 
 
 
